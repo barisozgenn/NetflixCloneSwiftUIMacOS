@@ -59,6 +59,7 @@
 				AF6575CA29263A780069C2DF /* Resources */,
 				AF6575C4292639E60069C2DF /* App */,
 				AF6575B72926242D0069C2DF /* ContentView.swift */,
+				AF6575BE2926242E0069C2DF /* NetflixCloneSwiftUIMacOS.entitlements */,
 				AF6575BB2926242E0069C2DF /* Preview Content */,
 			);
 			path = NetflixCloneSwiftUIMacOS;
@@ -86,7 +87,6 @@
 				AF6575CC29263A910069C2DF /* netflix-intro-for-launch.mp4 */,
 				AF6575CB29263A910069C2DF /* netflix-intro-for-movie.mp4 */,
 				AF6575B92926242E0069C2DF /* Assets.xcassets */,
-				AF6575BE2926242E0069C2DF /* NetflixCloneSwiftUIMacOS.entitlements */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
