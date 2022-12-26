@@ -11,12 +11,13 @@ import SwiftUI
 struct NetflixCloneSwiftUIMacOSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+                .frame(width: 992, height: 558)
                 .toolbarBackground(
                     LinearGradient(
                         colors: [
-                            .red,
-                            Color(.init(red: 0.5, green: 0, blue: 0, alpha: 1))
+                            Color(.init(red: 0.90, green: 0.04, blue: 0.08, alpha: 1.00)),
+                            .clear
                         ],
                         startPoint: .top,
                         endPoint: .bottom),
@@ -25,8 +26,8 @@ struct NetflixCloneSwiftUIMacOSApp: App {
                 .background(.black)
                 .preferredColorScheme(.dark)
         }
-       .windowStyle(.hiddenTitleBar)
-       .defaultSize(width: 992, height: 558)
-       .windowToolbarStyle(.expanded)
+        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 992, height: 558)
+        .windowToolbarStyle(.unified)
     }
 }
