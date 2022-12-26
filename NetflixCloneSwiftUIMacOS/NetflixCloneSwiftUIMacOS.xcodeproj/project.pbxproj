@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF1E41912959A04900E04277 /* TransitionPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E41902959A04900E04277 /* TransitionPlayerView.swift */; };
 		AF6575B62926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6575B52926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift */; };
 		AF6575B82926242D0069C2DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6575B72926242D0069C2DF /* ContentView.swift */; };
 		AF6575BA2926242E0069C2DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6575B92926242E0069C2DF /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF1E41902959A04900E04277 /* TransitionPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionPlayerView.swift; sourceTree = "<group>"; };
 		AF6575B22926242D0069C2DF /* NetflixCloneSwiftUIMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixCloneSwiftUIMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6575B52926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixCloneSwiftUIMacOSApp.swift; sourceTree = "<group>"; };
 		AF6575B72926242D0069C2DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -37,6 +39,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF1E418D29599FF700E04277 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AF1E418E29599FFC00E04277 /* TransitionPlayer */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AF1E418E29599FFC00E04277 /* TransitionPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				AF1E418F2959A03400E04277 /* Views */,
+			);
+			path = TransitionPlayer;
+			sourceTree = "<group>";
+		};
+		AF1E418F2959A03400E04277 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF1E41902959A04900E04277 /* TransitionPlayerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AF1E41922959A30500E04277 /* videos */ = {
+			isa = PBXGroup;
+			children = (
+				AF6575CC29263A910069C2DF /* netflix-intro-for-launch.mp4 */,
+				AF6575CB29263A910069C2DF /* netflix-intro-for-movie.mp4 */,
+			);
+			path = videos;
+			sourceTree = "<group>";
+		};
 		AF6575A92926242D0069C2DF = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +91,7 @@
 		AF6575B42926242D0069C2DF /* NetflixCloneSwiftUIMacOS */ = {
 			isa = PBXGroup;
 			children = (
+				AF1E418D29599FF700E04277 /* Core */,
 				AF6575CA29263A780069C2DF /* Resources */,
 				AF6575C4292639E60069C2DF /* App */,
 				AF6575B72926242D0069C2DF /* ContentView.swift */,
@@ -84,8 +120,7 @@
 		AF6575CA29263A780069C2DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AF6575CC29263A910069C2DF /* netflix-intro-for-launch.mp4 */,
-				AF6575CB29263A910069C2DF /* netflix-intro-for-movie.mp4 */,
+				AF1E41922959A30500E04277 /* videos */,
 				AF6575B92926242E0069C2DF /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -164,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF6575B82926242D0069C2DF /* ContentView.swift in Sources */,
+				AF1E41912959A04900E04277 /* TransitionPlayerView.swift in Sources */,
 				AF6575B62926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
