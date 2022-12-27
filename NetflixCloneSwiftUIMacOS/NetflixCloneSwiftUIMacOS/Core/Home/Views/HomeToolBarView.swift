@@ -95,7 +95,7 @@ struct CustomToolBarTrailingView: View {
                         isSearchActive.toggle()
                     }
                 }
-            TextField("Search...", text: $searchText)
+            TextField("Titles, people, genres", text: $searchText)
                 .frame(width: isSearchActive ? 107 : 0)
                 .scaleEffect(x: isSearchActive ? 1 : 0)
                 .textFieldStyle(.plain)
