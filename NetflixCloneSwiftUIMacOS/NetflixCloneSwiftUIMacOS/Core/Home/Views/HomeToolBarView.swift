@@ -95,11 +95,20 @@ struct CustomToolBarTrailingView: View {
                         isSearchActive.toggle()
                     }
                 }
-            TextField("Titles, people, genres", text: $searchText)
-                .frame(width: isSearchActive ? 107 : 0)
-                .scaleEffect(x: isSearchActive ? 1 : 0)
-                .textFieldStyle(.plain)
-                .foregroundColor(.white)
+            ZStack(alignment: .leading){
+                if searchText.isEmpty {
+                    Text("Titles, people").foregroundColor(.white)
+                        .frame(width: isSearchActive ? 107 : 0, alignment: .leading)
+                        .scaleEffect(x: isSearchActive ? 1 : 0)
+                        .opacity(isSearchActive ? 1 : 0)
+                }
+                TextField("", text: $searchText)
+                    .frame(width: isSearchActive ? 107 : 0)
+                    .scaleEffect(x: isSearchActive ? 1 : 0)
+                    .textFieldStyle(.plain)
+                    .foregroundColor(.white)
+            }
+                
         }
         .padding(.all, 4)
         .overlay {
