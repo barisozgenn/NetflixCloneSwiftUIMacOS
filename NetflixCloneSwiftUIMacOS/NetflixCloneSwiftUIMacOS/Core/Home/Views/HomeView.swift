@@ -11,28 +11,49 @@ struct HomeView: View {
     @State var selectedMenuName: String = "Home"
     @State var searchText: String = ""
     @State var islaunchScreenEnd: Bool = false
-
+    @State var islaunchScreenRemove: Bool = false
     var body: some View {
-        NavigationStack{
-            ZStack{
-                TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
-            }
-            .frame(maxWidth: .infinity,maxHeight: .infinity)
-            .background(.black)
-            .toolbarRole(.editor)
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    HStack{
-                        Spacer()
-                        CustomToolBarTrailingView(selectedMenuName: $selectedMenuName, searchText: $searchText)
-                    }
+        GeometryReader { proxy in
+            NavigationStack{
+                ZStack{
                     
+                    if islaunchScreenRemove{
+                        HeaderVideoView()
+                    }
+                    else{
+                        TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
+                            .onChange(of: islaunchScreenEnd) { newValue in
+                                withAnimation(.easeIn(duration: 2)){
+                                    islaunchScreenRemove = true
+                                }
+                            }
+                    }
+                }
+                .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 729,maxHeight: .infinity)
+                .background(.black)
+                .toolbar {
+                    ToolbarItem(placement: .automatic) {
+                        HStack{
+                            Spacer()
+                            HomeToolBarView( selectedMenuName: $selectedMenuName)
+                                .opacity(islaunchScreenRemove ? 1 : 0)
+                        }
+                        
+                    }
+                        ToolbarItem(placement: .automatic) {
+                            HStack{
+                                Spacer()
+                                CustomToolBarTrailingView(selectedMenuName: $selectedMenuName, searchText: $searchText)
+                                    .opacity(islaunchScreenRemove ? 1 : 0)
+                            }
+                            .frame(minWidth: proxy.size.width - 666)
+                        }
+                        
                 }
             }
         }
-        .toolbar {
-            HomeToolBarView( selectedMenuName: $selectedMenuName)
-        }
+       
+       
     }
 }
 

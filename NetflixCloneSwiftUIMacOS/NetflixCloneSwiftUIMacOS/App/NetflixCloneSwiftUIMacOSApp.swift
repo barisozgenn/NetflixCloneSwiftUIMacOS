@@ -26,7 +26,6 @@ struct NetflixCloneSwiftUIMacOSApp: App {
                 .preferredColorScheme(.dark)
         }
         .windowStyle(.hiddenTitleBar)
-        .defaultSize(width: 1092, height: 729)
         .windowToolbarStyle(.unified)
     }
 }
