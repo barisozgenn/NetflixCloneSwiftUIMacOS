@@ -12,6 +12,7 @@ struct NetflixCloneSwiftUIMacOSApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .environmentObject(HomeViewModel())
                 .toolbarBackground(
                     LinearGradient(
                         colors: [

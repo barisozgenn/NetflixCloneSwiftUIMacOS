@@ -8,27 +8,29 @@
 import SwiftUI
 import AVKit
 struct HeaderVideoView: View {
-    private let videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "avatar-intro", withExtension: "mp4")!)
+    @EnvironmentObject private var viewModel: HomeViewModel
     var body: some View {
         ZStack{
             videoPlayerView
+            Text("BARİS")
+                .font(.title)
         }
+        .frame(width: 1158, height: 650)
+        .foregroundColor(.white)
+        .offset(y:-158)
     }
 }
 extension HeaderVideoView{
     private var videoPlayerView : some View {
-        AVPlayerRepresented(videoPlayer: videoPlayer)
-            .onAppear {
-                videoPlayer.isMuted = true
-                videoPlayer.play()
-                videoPlayer.actionAtItemEnd = .none
-            }
+        AVPlayerRepresented(videoPlayer: viewModel.headerVideoPlayer)
             .frame(maxWidth: .infinity)
             .disabled(true)
+            .background(.purple)
     }
 }
 struct HeaderVideoView_Previews: PreviewProvider {
     static var previews: some View {
         HeaderVideoView()
+            .environmentObject(HomeViewModel())
     }
 }

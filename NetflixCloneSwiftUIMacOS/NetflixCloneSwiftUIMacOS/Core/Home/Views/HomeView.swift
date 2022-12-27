@@ -12,22 +12,32 @@ struct HomeView: View {
     @State var searchText: String = ""
     @State var islaunchScreenEnd: Bool = false
     @State var islaunchScreenRemove: Bool = false
+    @EnvironmentObject private var viewModel: HomeViewModel
     var body: some View {
         GeometryReader { proxy in
             NavigationStack{
                 ZStack{
-                    
-                    if islaunchScreenRemove{
-                        HeaderVideoView()
-                    }
-                    else{
-                        TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
-                            .onChange(of: islaunchScreenEnd) { newValue in
-                                withAnimation(.easeIn(duration: 2)){
-                                    islaunchScreenRemove = true
+                        if islaunchScreenRemove{
+                            ScrollView{
+                                VStack{
+                                    HeaderVideoView()
+                                        .environmentObject(viewModel)
+                                    Spacer()
+                                    Text("w:\(proxy.size.width) h:\(proxy.size.height)")
                                 }
+                                .background(.yellow)
                             }
-                    }
+                            .frame(maxHeight: .infinity)
+                        }
+                        else{
+                            TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
+                                .onChange(of: islaunchScreenEnd) { newValue in
+                                    withAnimation(.easeIn(duration: 2)){
+                                        islaunchScreenRemove = true
+                                    }
+                                }
+                            
+                        }
                 }
                 .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 729,maxHeight: .infinity)
                 .background(.black)
@@ -60,5 +70,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(HomeViewModel())
     }
 }
