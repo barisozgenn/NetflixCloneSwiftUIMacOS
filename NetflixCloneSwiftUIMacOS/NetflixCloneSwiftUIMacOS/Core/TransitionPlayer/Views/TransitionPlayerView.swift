@@ -16,7 +16,6 @@ struct TransitionPlayerView: View {
         ZStack{
             videoPlayerView
         }
-        .frame(width: 992, height: 558)
         .background(.black)
     }
 }

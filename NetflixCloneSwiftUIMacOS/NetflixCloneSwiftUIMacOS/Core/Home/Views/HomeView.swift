@@ -15,12 +15,21 @@ struct HomeView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                
                 TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
-                HomeToolBarView.CustomToolBarTrailingView(selectedMenuName: $selectedMenuName, searchText: $searchText)
+            }
+            .frame(maxWidth: .infinity,maxHeight: .infinity)
+            .background(.black)
+            .toolbarRole(.editor)
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    HStack{
+                        Spacer()
+                        CustomToolBarTrailingView(selectedMenuName: $selectedMenuName, searchText: $searchText)
+                    }
+                    
+                }
             }
         }
-        .background(.black)
         .toolbar {
             HomeToolBarView( selectedMenuName: $selectedMenuName)
         }

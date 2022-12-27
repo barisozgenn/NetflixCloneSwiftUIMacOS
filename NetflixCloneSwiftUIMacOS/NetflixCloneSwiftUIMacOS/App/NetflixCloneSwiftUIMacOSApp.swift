@@ -12,7 +12,6 @@ struct NetflixCloneSwiftUIMacOSApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .frame(width: 992, height: 558)
                 .toolbarBackground(
                     LinearGradient(
                         colors: [
@@ -27,7 +26,7 @@ struct NetflixCloneSwiftUIMacOSApp: App {
                 .preferredColorScheme(.dark)
         }
         .windowStyle(.hiddenTitleBar)
-        .defaultSize(width: 992, height: 558)
+        .defaultSize(width: 1092, height: 729)
         .windowToolbarStyle(.unified)
     }
 }

@@ -49,57 +49,66 @@ extension HomeToolBarView {
                 .padding(.horizontal)
         }
     }
-    struct CustomToolBarTrailingView: View {
-        @Binding var selectedMenuName: String
-        @State private var foregroundColor : Color = .white
-        @State private var isSearchActive = false
-        @Binding var searchText: String
+}
+struct CustomToolBarTrailingView: View {
+    @Binding var selectedMenuName: String
+    @State private var foregroundColor : Color = .white
+    @State private var isSearchActive = false
+    @Binding var searchText: String
 
-        var body: some View {
+    var body: some View {
+        HStack{
+            Spacer()
+            searchView
+            HomeToolBarView.CustomToolBarItem(menuName: "Kids", selectedMenuName: $selectedMenuName)
+            Image(systemName: "bell")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 18)
+                .tint(.white)
             HStack{
-                Spacer()
-                searchView
-                CustomToolBarItem(menuName: "Kids", selectedMenuName: $selectedMenuName)
-                Image(systemName: "bell")
+                Image("default-profile-baris")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 18)
-                    .tint(.white)
-                Image(systemName: "person.fill")
+                    .frame(height: 24)
+                    .background(.blue)
+                    .cornerRadius(4)
+                    .padding(.leading,14)
+                Image(systemName: "arrowtriangle.down.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 18)
+                    .frame(height: 12)
                     .tint(.white)
-            }
-        }
-        private var searchView: some View{
-            HStack{
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 18)
-                    .tint(.white)
-                    .onTapGesture {
-                        withAnimation(.spring()){
-                            isSearchActive.toggle()
-                        }
-                    }
-                TextField("Search...", text: $searchText)
-                    .frame(width: isSearchActive ? 107 : 0)
-                    .scaleEffect(x: isSearchActive ? 1 : 0)
-                    .textFieldStyle(.plain)
-                    .foregroundColor(.white)
-            }
-            .padding(.all, 4)
-            .overlay {
-                if isSearchActive {
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(.white, lineWidth: 1)
-                }
+                    .padding(.trailing,7)
             }
         }
     }
-  
+    private var searchView: some View{
+        HStack{
+            Image(systemName: "magnifyingglass")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 18)
+                .tint(.white)
+                .onTapGesture {
+                    withAnimation(.spring()){
+                        isSearchActive.toggle()
+                    }
+                }
+            TextField("Search...", text: $searchText)
+                .frame(width: isSearchActive ? 107 : 0)
+                .scaleEffect(x: isSearchActive ? 1 : 0)
+                .textFieldStyle(.plain)
+                .foregroundColor(.white)
+        }
+        .padding(.all, 4)
+        .overlay {
+            if isSearchActive {
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(.white, lineWidth: 1)
+            }
+        }
+    }
 }
 
 struct HomeToolBarView_Previews: PreviewProvider {
