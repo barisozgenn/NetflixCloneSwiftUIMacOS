@@ -22,14 +22,17 @@ struct HomeView: View {
                             VStack{
                                 HeaderVideoView()
                                     .environmentObject(viewModel)
-                                ListView(title: "Documentaries")
-                                    .padding(.top, -229)
                                 
+                                ListView(title: "Documentaries")
+                                
+                                    .background {
+                                        LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .center)
+                                    }
+                                    .padding(.top, -229)
                                 Spacer()
                                 Text("w:\(proxy.size.width) h:\(proxy.size.height)")
                                     .padding(50)
                             }
-                            .background(.yellow)
                         }
                         .frame(maxHeight: .infinity)
                     }
@@ -40,10 +43,9 @@ struct HomeView: View {
                                     islaunchScreenRemove = true
                                 }
                             }
-                        
                     }
                 }
-                .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 729,maxHeight: .infinity)
+                .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 672,maxHeight: .infinity)
                 .background(.black)
                 .toolbar {
                     ToolbarItem(placement: .automatic) {

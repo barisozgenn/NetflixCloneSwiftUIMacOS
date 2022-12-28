@@ -26,7 +26,7 @@ struct HeaderVideoView: View {
                         Text("MOVIES")
                             .font(isFocused ? .headline : .title3)
                             .foregroundColor(Color(.lightGray).opacity(0.92))
-                            
+                        
                     }
                     // content logo and description
                     VStack(alignment: .leading){
@@ -37,7 +37,7 @@ struct HeaderVideoView: View {
                             .opacity(0.92)
                             .foregroundColor(.white)
                             .padding(.vertical, -14)
-                            
+                        
                         
                         Text("Avatar takes us to the amazing world of Pandora, where a man embarks on an epic adventure, ultimately fighting to save both the people he loves and the place he now calls home.")
                             .font(.headline)
@@ -107,13 +107,13 @@ struct HeaderVideoView: View {
                 .foregroundColor(.white)
             }
             .padding(.horizontal)
-            .padding(.bottom, 114)
+            .padding(.bottom, 192)
             
         }
         .fontWeight(.semibold)
         .frame(width: 1158, height: 650)
         .foregroundColor(.white)
-        .offset(y:-158)
+        .offset(y:-70)
         .onHover { hover in
             withAnimation(.spring()){
                 isFocused = hover

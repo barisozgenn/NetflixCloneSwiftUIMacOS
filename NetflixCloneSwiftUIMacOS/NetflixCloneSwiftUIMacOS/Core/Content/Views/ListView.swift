@@ -21,13 +21,14 @@ struct ListView: View {
                     }
                 }
             }
+            .scrollIndicators(.hidden)
             .onHover { hover in
                 withAnimation(.spring()){
                     isListHover = hover
                 }
             }
         }
-        .background(.brown.opacity(0.2))
+        .padding(.top)
     }
 }
 
