@@ -17,27 +17,31 @@ struct HomeView: View {
         GeometryReader { proxy in
             NavigationStack{
                 ZStack{
-                        if islaunchScreenRemove{
-                            ScrollView{
-                                VStack{
-                                    HeaderVideoView()
-                                        .environmentObject(viewModel)
-                                    Spacer()
-                                    Text("w:\(proxy.size.width) h:\(proxy.size.height)")
-                                }
-                                .background(.yellow)
+                    if islaunchScreenRemove{
+                        ScrollView{
+                            VStack{
+                                HeaderVideoView()
+                                    .environmentObject(viewModel)
+                                ListView(title: "Documentaries")
+                                    .padding(.top, -229)
+                                
+                                Spacer()
+                                Text("w:\(proxy.size.width) h:\(proxy.size.height)")
+                                    .padding(50)
                             }
-                            .frame(maxHeight: .infinity)
+                            .background(.yellow)
                         }
-                        else{
-                            TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
-                                .onChange(of: islaunchScreenEnd) { newValue in
-                                    withAnimation(.easeIn(duration: 2)){
-                                        islaunchScreenRemove = true
-                                    }
+                        .frame(maxHeight: .infinity)
+                    }
+                    else{
+                        TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
+                            .onChange(of: islaunchScreenEnd) { newValue in
+                                withAnimation(.easeIn(duration: 2)){
+                                    islaunchScreenRemove = true
                                 }
-                            
-                        }
+                            }
+                        
+                    }
                 }
                 .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 729,maxHeight: .infinity)
                 .background(.black)
@@ -50,20 +54,20 @@ struct HomeView: View {
                         }
                         
                     }
-                        ToolbarItem(placement: .automatic) {
-                            HStack{
-                                Spacer()
-                                CustomToolBarTrailingView(selectedMenuName: $selectedMenuName, searchText: $searchText)
-                                    .opacity(islaunchScreenRemove ? 1 : 0)
-                            }
-                            .frame(minWidth: proxy.size.width - 666)
+                    ToolbarItem(placement: .automatic) {
+                        HStack{
+                            Spacer()
+                            CustomToolBarTrailingView(selectedMenuName: $selectedMenuName, searchText: $searchText)
+                                .opacity(islaunchScreenRemove ? 1 : 0)
                         }
-                        
+                        .frame(minWidth: proxy.size.width - 666)
+                    }
+                    
                 }
             }
         }
-       
-       
+        
+        
     }
 }
 

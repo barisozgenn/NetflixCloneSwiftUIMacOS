@@ -21,10 +21,10 @@ struct HeaderVideoView: View {
                         Image("img-netflix-logo-letter")
                             .resizable()
                             .scaledToFit()
-                            .frame(height: isFocused ? 40 : 36)
+                            .frame(height: isFocused ? 24 : 36)
                             .opacity(0.92)
                         Text("MOVIES")
-                            .font(isFocused ? .title2 : .title3)
+                            .font(isFocused ? .headline : .title3)
                             .foregroundColor(Color(.lightGray).opacity(0.92))
                             
                     }
