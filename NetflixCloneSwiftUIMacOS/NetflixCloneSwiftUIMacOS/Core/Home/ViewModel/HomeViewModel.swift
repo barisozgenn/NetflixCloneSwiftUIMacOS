@@ -7,6 +7,7 @@
 
 import AVKit
 class HomeViewModel: ObservableObject {
+    @Published var contentTitles: [String] = ["Trending Now","Documentaries", "Only on Netflix","Watch In One Weekend"]
     @Published var headerVideoPlayer = AVPlayer(url: Bundle.main.url(forResource: "avatar-intro", withExtension: "mp4")!)
     
     init(){

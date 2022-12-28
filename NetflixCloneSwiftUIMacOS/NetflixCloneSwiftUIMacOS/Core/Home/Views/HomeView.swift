@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject private var viewModel: HomeViewModel
+
     @State var selectedMenuName: String = "Home"
     @State var searchText: String = ""
     @State var islaunchScreenEnd: Bool = false
     @State var islaunchScreenRemove: Bool = false
-    @EnvironmentObject private var viewModel: HomeViewModel
+    @State var hoverListId = "none"
+    
     var body: some View {
         GeometryReader { proxy in
             NavigationStack{
@@ -20,16 +23,10 @@ struct HomeView: View {
                     if islaunchScreenRemove{
                         ScrollView{
                             VStack{
-                                HeaderVideoView()
-                                    .environmentObject(viewModel)
-                                  
-                                ListView(title: "Documentaries")
-                                    .background {
-                                        LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .center)
-                                    }
-                                    .padding(.top, -100)
+                                headerVideoView
+                                gradientFadeHeaderVideo
+                                contentListsView
                                 
-                                ListView(title: "Movies")
                                 Spacer()
                                 Text("w:\(proxy.size.width) h:\(proxy.size.height)")
                                     .padding(50)
@@ -38,12 +35,7 @@ struct HomeView: View {
                         .frame(maxHeight: .infinity)
                     }
                     else{
-                        TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
-                            .onChange(of: islaunchScreenEnd) { newValue in
-                                withAnimation(.easeIn(duration: 2)){
-                                    islaunchScreenRemove = true
-                                }
-                            }
+                        launchVideoView
                     }
                 }
                 .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 672,maxHeight: .infinity)
@@ -73,7 +65,41 @@ struct HomeView: View {
         
     }
 }
-
+extension HomeView {
+    private var launchVideoView: some View{
+        TransitionPlayerView(isVideoEnd: $islaunchScreenEnd)
+            .onChange(of: islaunchScreenEnd) { newValue in
+                withAnimation(.easeIn(duration: 2)){
+                    islaunchScreenRemove = true
+                }
+            }
+    }
+    private var headerVideoView: some View{
+        HeaderVideoView()
+            .environmentObject(viewModel)
+    }
+    private var gradientFadeHeaderVideo: some View{
+        LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .center)
+            .frame(maxWidth: .infinity,minHeight: 192, maxHeight: 192)
+            .padding(.top, -200)
+    }
+    private var contentListsView: some View {
+        ForEach(Array(viewModel.contentTitles.enumerated()), id: \.offset) {index, title in
+            ListView(title: title)
+                .padding(.top,index == 0 ? -100 : 0)
+                .onHover { hover in
+                    if hover {
+                        withAnimation(.spring()){
+                            hoverListId = title
+                        }
+                    }else {
+                        hoverListId = "none"
+                    }
+                }
+                .zIndex(hoverListId == title ? 7 : 0)
+        }
+    }
+}
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()

@@ -17,6 +17,8 @@ struct ListView: View {
             VStack(alignment: .leading){
                 ListHeaderView(isListHover: $isListHover, title: title)
                     .padding(.horizontal)
+                    .zIndex(2)
+                
                 ScrollView(.horizontal){
                     ZStack{
                         ForEach(0...20, id: \.self) { item in
@@ -28,6 +30,10 @@ struct ListView: View {
                                     if hover {
                                         withAnimation(.spring()){
                                             hoverItemIndex = item
+                                        }
+                                    }else {
+                                        withAnimation(.spring()){
+                                            hoverItemIndex = -1
                                         }
                                     }
                                 }
