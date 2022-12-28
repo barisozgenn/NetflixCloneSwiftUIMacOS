@@ -22,13 +22,14 @@ struct HomeView: View {
                             VStack{
                                 HeaderVideoView()
                                     .environmentObject(viewModel)
-                                
+                                  
                                 ListView(title: "Documentaries")
-                                
                                     .background {
                                         LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .center)
                                     }
-                                    .padding(.top, -229)
+                                    .padding(.top, -100)
+                                
+                                ListView(title: "Movies")
                                 Spacer()
                                 Text("w:\(proxy.size.width) h:\(proxy.size.height)")
                                     .padding(50)
