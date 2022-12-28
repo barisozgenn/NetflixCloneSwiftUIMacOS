@@ -45,6 +45,7 @@ struct HeaderVideoView: View {
                             .opacity(isFocused ? 1 : 0)
                             .frame(height: isFocused ? 100 : 0)
                             .frame(width: 258)
+                            .shadow(color: .black.opacity(0.92), radius: 2, x: 1, y: 1)
                     }
                     // content buttons
                     HStack{
