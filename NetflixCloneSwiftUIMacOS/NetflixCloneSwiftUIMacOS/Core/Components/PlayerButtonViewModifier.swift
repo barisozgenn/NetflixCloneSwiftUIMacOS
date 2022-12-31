@@ -1,5 +1,5 @@
 //
-//  PlayerButtonStyle.swift
+//  PlayerButtonViewModifier.swift
 //  NetflixCloneSwiftUIMacOS
 //
 //  Created by Baris OZGEN on 31.12.2022.

@@ -10,6 +10,7 @@ import SwiftUI
 struct PlayerView: View {
     @StateObject private var viewModel = PlayerViewModel()
     @State private var isControlPanelVisible = false
+    @State private var isFullScreen = false
     var body: some View {
         ZStack{
             videoPlayerView
@@ -28,7 +29,7 @@ extension PlayerView{
             }
     }
     private var controlPanelView: some View {
-        VStack{
+        VStack(spacing:20){
             HStack{
                 Image(systemName: "arrow.left")
                     .resizable()
@@ -42,6 +43,12 @@ extension PlayerView{
             }
             .padding(.horizontal)
             Spacer()
+            HStack{
+                Slider(value: $viewModel.videoCurrentTime, in: 0...viewModel.videoTotalSeconds)
+                    .tint(.red)
+                Text("\(viewModel.videoDuration)")
+                    .font(.headline)
+            }
             HStack{
                 HStack(spacing:29){
                     Image(systemName: "play.fill")
@@ -76,8 +83,15 @@ extension PlayerView{
                     Image(systemName: "rectangle.dashed")
                         .resizable()
                         .withPlayerButtonModifier()
+                        .onTapGesture {
+                            withAnimation(.spring()){
+                                if let window = NSApplication.shared.windows.last {
+                                    window.toggleFullScreen($isFullScreen)
+                                }
+                            }
+                        }
                 }
-                .padding(.bottom)
+                .padding(.bottom, 29)
             }
             .shadow(color: .black.opacity(0.29), radius: 3, x: 1, y: 1)
             .fontWeight(.bold)

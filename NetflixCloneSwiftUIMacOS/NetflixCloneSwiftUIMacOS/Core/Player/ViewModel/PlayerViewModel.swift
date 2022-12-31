@@ -13,13 +13,19 @@ class PlayerViewModel: ObservableObject{
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4")!]
-    
+    var timeObserverToken: Any?
+
     @Published var videoPlayer : AVPlayer
+    @Published var videoDuration : String = "00:00:00"
+    @Published var videoCurrentTime : Double = 0
+    @Published var videoTimeLeft : Double = 1
+    @Published var videoTotalSeconds : Double = 1
     
     init(){
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
-        // first show demo netflix video than select a demo movie
+        // first show demo netflix video than select a random demo movie
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
@@ -28,9 +34,57 @@ class PlayerViewModel: ObservableObject{
     }
     
     @objc func playerItemDidReachEnd(notification: Notification) {
-        print("Player Item: \(videoPlayer.currentItem!)")
+        removePeriodicTimeObserver()
         videoPlayer.seek(to: CMTime.zero)
         videoPlayer.replaceCurrentItem(with: AVPlayerItem(url: randomDemoVideos.randomElement()!))
         videoPlayer.play()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.9) {
+            let totalSeconds = self.videoPlayer.currentItem?.duration.seconds ?? 0
+            self.videoCurrentTime = 0
+            self.videoTotalSeconds = totalSeconds
+            self.videoTimeLeft = totalSeconds
+            let (hh,mm,ss) = self.modifyVideoTime(totalSeconds)
+            self.videoDuration = "\(hh):\(mm):\(ss)"
+            self.addPeriodicTimeObserver()
+        }
+    }
+    
+    private func modifyVideoTime(_ seconds: Double) -> (String,String,String) {
+        let secondsInt = Int(seconds)
+        let (h,m,s) = (secondsInt / 3600, (secondsInt % 3600) / 60, (secondsInt % 3600) % 60)
+        let hh = h < 10 ? "0\(h)" : String(h)
+        let mm = m < 10 ? "0\(m)" : String(m)
+        let ss = s < 10 ? "0\(s)" : String(s)
+        return (hh,mm,ss)
+    }
+    
+    func addPeriodicTimeObserver() {
+        // Notify every second
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 0.1, preferredTimescale: timeScale)
+
+        timeObserverToken = videoPlayer.addPeriodicTimeObserver(forInterval: time,
+                                                          queue: .main) {
+            [weak self] time in
+            // update player transport UI
+            self?.videoCurrentTime = time.seconds
+            self?.updateVideoDuration()
+        }
+    }
+    
+    func removePeriodicTimeObserver() {
+        if let timeObserverToken = timeObserverToken {
+            videoPlayer.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
+    }
+
+    func updateVideoDuration(){
+        videoTimeLeft -= videoCurrentTime
+        if videoTimeLeft > 0 {
+            let (hh,mm,ss) = modifyVideoTime(videoTimeLeft)
+            videoDuration = "\(hh):\(mm):\(ss)"
+        }
     }
 }
