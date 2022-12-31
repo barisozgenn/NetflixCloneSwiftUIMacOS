@@ -25,6 +25,7 @@ class PlayerViewModel: ObservableObject{
     @Published var videIsPlaying: Bool = true
     @Published var videoVolume : Double = 1
     @Published var videoFrame : (width: CGFloat, height: CGFloat) = (1158,672)
+    @Published var isFrameFullScreen : Bool = false
     init(){
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
@@ -118,8 +119,10 @@ class PlayerViewModel: ObservableObject{
     
     func setFrameSize(){
         let frameSize = videoPlayer.currentItem!.presentationSize
+        let fullScreenSize : (width: CGFloat, height: CGFloat) = ( NSScreen.main!.frame.width, NSScreen.main!.frame.width)
+       
         withAnimation(.spring()){
-            videoFrame = (frameSize.width, frameSize.height)
+            videoFrame = isFrameFullScreen ? fullScreenSize : (frameSize.width, frameSize.height)
         }
     }
 }

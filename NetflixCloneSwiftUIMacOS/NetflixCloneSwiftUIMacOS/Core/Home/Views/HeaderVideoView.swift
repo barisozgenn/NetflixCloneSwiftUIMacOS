@@ -8,9 +8,9 @@
 import SwiftUI
 import AVKit
 struct HeaderVideoView: View {
+    @Environment(\.openWindow) var openWindow
     @EnvironmentObject private var viewModel: HomeViewModel
     @State private var isFocused = true
-    @State private var isContentSelected = true
     var body: some View {
         ZStack(alignment: .bottomLeading){
             videoPlayerView
@@ -57,10 +57,6 @@ struct HeaderVideoView: View {
                                     .frame(height: isFocused ? 24 : 20)
                                     .opacity(0.92)
                                     .foregroundColor(.black)
-                                    .sheet(isPresented: $isContentSelected) {
-                                        PlayerView()
-                                            
-                                    }
                             
                             Text("Play")
                                 .font(isFocused ? .title2 : .title3)
@@ -70,6 +66,9 @@ struct HeaderVideoView: View {
                         .padding(.vertical,7)
                         .background(.white)
                         .cornerRadius(7)
+                        .onTapGesture {
+                            openWindow(id: "player-window")
+                        }
                         HStack{
                             Image(systemName: "info.circle")
                                 .resizable()

@@ -13,7 +13,7 @@ struct PlayerView: View {
     @State private var isFullScreen = false
     @State private var isVolumeHover = false
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         ZStack{
             videoPlayerView
@@ -36,6 +36,12 @@ extension PlayerView{
             .onAppear{
                 withAnimation(.spring()){isControlPanelVisible=true}
             }
+            .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification), perform: { _ in
+                NSApp.mainWindow?.standardWindowButton(.closeButton)?.isHidden = true
+                NSApp.mainWindow?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+                NSApp.mainWindow?.standardWindowButton(.zoomButton)?.isHidden = true
+                
+            })
     }
     private var controlPanelView: some View {
         VStack(spacing:20){
@@ -44,7 +50,9 @@ extension PlayerView{
                     .resizable()
                     .scaledToFit()
                     .frame(height: 24)
-                    .onTapGesture {dismiss()}
+                    .onTapGesture {
+                        viewModel.videoPlayStop()
+                        dismiss()}
                 Spacer()
                 Image(systemName: "flag")
                     .resizable()
@@ -117,9 +125,10 @@ extension PlayerView{
                         .withPlayerButtonModifier()
                         .onTapGesture {
                             withAnimation(.spring()){
-                                if let window = NSApplication.shared.windows.last {
-                                    window.toggleFullScreen($isFullScreen)
-                                }
+                                /*if let window = NSApplication.shared.windows.last {
+                                 window.toggleFullScreen($isFullScreen)
+                                 }*/
+                                viewModel.isFrameFullScreen.toggle()
                             }
                         }
                 }

@@ -31,5 +31,9 @@ struct NetflixCloneSwiftUIMacOSApp: App {
         .windowToolbarStyle(.unified)
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1158, height: 672)
+        
+        Window("", id: "player-window") {
+            PlayerView()
+        }
     }
 }
