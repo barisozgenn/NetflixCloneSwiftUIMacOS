@@ -17,9 +17,9 @@ class PlayerViewModel: ObservableObject{
     @Published var videoPlayer : AVPlayer
     
     init(){
-        // first show demo netflix movie start video
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
+        // first show demo netflix video than select a demo movie
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,

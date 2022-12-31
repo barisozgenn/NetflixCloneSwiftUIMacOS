@@ -22,6 +22,8 @@
 		AF1E41B6295E148E00E04277 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E41B5295E148E00E04277 /* ContentModel.swift */; };
 		AF1E41BB295EFDED00E04277 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E41BA295EFDED00E04277 /* PlayerViewModel.swift */; };
 		AF1E41BD295EFF0B00E04277 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E41BC295EFF0B00E04277 /* PlayerView.swift */; };
+		AF1E41C12960277300E04277 /* PlayerButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E41C02960277300E04277 /* PlayerButtonViewModifier.swift */; };
+		AF1E41C42960283C00E04277 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E41C32960283C00E04277 /* View.swift */; };
 		AF6575B62926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6575B52926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift */; };
 		AF6575BA2926242E0069C2DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6575B92926242E0069C2DF /* Assets.xcassets */; };
 		AF6575BD2926242E0069C2DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6575BC2926242E0069C2DF /* Preview Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		AF1E41BA295EFDED00E04277 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		AF1E41BC295EFF0B00E04277 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		AF1E41BE295F037300E04277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AF1E41C02960277300E04277 /* PlayerButtonViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonViewModifier.swift; sourceTree = "<group>"; };
+		AF1E41C32960283C00E04277 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		AF6575B22926242D0069C2DF /* NetflixCloneSwiftUIMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixCloneSwiftUIMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6575B52926242D0069C2DF /* NetflixCloneSwiftUIMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixCloneSwiftUIMacOSApp.swift; sourceTree = "<group>"; };
 		AF6575B92926242E0069C2DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 		AF1E418D29599FF700E04277 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				AF1E41BF2960263600E04277 /* Components */,
 				AF1E41982959BD9200E04277 /* Home */,
 				AF1E418E29599FFC00E04277 /* TransitionPlayer */,
 				AF1E41A5295C1F4C00E04277 /* Content */,
@@ -199,6 +204,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		AF1E41BF2960263600E04277 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AF1E41C02960277300E04277 /* PlayerButtonViewModifier.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AF1E41C2296027FF00E04277 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AF1E41C32960283C00E04277 /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		AF6575A92926242D0069C2DF = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +241,7 @@
 			children = (
 				AF1E41BE295F037300E04277 /* Info.plist */,
 				AF1E41B4295E147F00E04277 /* Model */,
+				AF1E41C2296027FF00E04277 /* Extensions */,
 				AF1E418D29599FF700E04277 /* Core */,
 				AF6575CA29263A780069C2DF /* Resources */,
 				AF6575C4292639E60069C2DF /* App */,
@@ -329,12 +351,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF1E41C42960283C00E04277 /* View.swift in Sources */,
 				AF1E41A1295AE6BC00E04277 /* HeaderVideoView.swift in Sources */,
 				AF1E41942959AAA700E04277 /* AVPlayerRepresented.swift in Sources */,
 				AF1E41A9295C1FA100E04277 /* ListHeaderView.swift in Sources */,
 				AF1E419D2959BFC300E04277 /* HomeToolBarView.swift in Sources */,
 				AF1E41BB295EFDED00E04277 /* PlayerViewModel.swift in Sources */,
 				AF1E41A4295AEB1900E04277 /* HomeViewModel.swift in Sources */,
+				AF1E41C12960277300E04277 /* PlayerButtonViewModifier.swift in Sources */,
 				AF1E41B6295E148E00E04277 /* ContentModel.swift in Sources */,
 				AF1E41972959BA0200E04277 /* TransitionPlayerViewModel.swift in Sources */,
 				AF1E41AB295C24F500E04277 /* ContentCellView.swift in Sources */,
