@@ -6,6 +6,8 @@
 //
 
 import AVKit
+import SwiftUI
+
 class PlayerViewModel: ObservableObject{
     private let randomDemoVideos = [URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!,
@@ -20,7 +22,9 @@ class PlayerViewModel: ObservableObject{
     @Published var videoCurrentTime : Double = 0
     @Published var videoTimeLeft : Double = 1
     @Published var videoTotalSeconds : Double = 1
-    
+    @Published var videIsPlaying: Bool = true
+    @Published var videoVolume : Double = 1
+    @Published var videoFrame : (width: CGFloat, height: CGFloat) = (1158,672)
     init(){
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
@@ -62,7 +66,7 @@ class PlayerViewModel: ObservableObject{
     func addPeriodicTimeObserver() {
         // Notify every second
         let timeScale = CMTimeScale(NSEC_PER_SEC)
-        let time = CMTime(seconds: 0.1, preferredTimescale: timeScale)
+        let time = CMTime(seconds: 0.29, preferredTimescale: timeScale)
 
         timeObserverToken = videoPlayer.addPeriodicTimeObserver(forInterval: time,
                                                           queue: .main) {
@@ -70,6 +74,7 @@ class PlayerViewModel: ObservableObject{
             // update player transport UI
             self?.videoCurrentTime = time.seconds
             self?.updateVideoDuration()
+            self?.setFrameSize()
         }
     }
     
@@ -81,10 +86,40 @@ class PlayerViewModel: ObservableObject{
     }
 
     func updateVideoDuration(){
-        videoTimeLeft -= videoCurrentTime
+        videoTimeLeft = videoTotalSeconds - videoCurrentTime
         if videoTimeLeft > 0 {
             let (hh,mm,ss) = modifyVideoTime(videoTimeLeft)
             videoDuration = "\(hh):\(mm):\(ss)"
+        }
+    }
+    
+    func videoPlayStop(){
+        withAnimation(.spring()){
+            if videIsPlaying {
+                videoPlayer.pause()
+                videIsPlaying = false
+            }else {
+                videoPlayer.play()
+                videIsPlaying = true
+            }
+        }
+    }
+    
+    func videoChangeTime(isForward: Bool = true){
+        let nextSeconds = isForward ? videoCurrentTime+10 : videoCurrentTime-10
+        let timeCM = CMTime(seconds: nextSeconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        videoPlayer.seek(to: timeCM)
+        
+    }
+    
+    func setVideoVolume(){
+        videoPlayer.volume = Float(videoVolume)
+    }
+    
+    func setFrameSize(){
+        let frameSize = videoPlayer.currentItem!.presentationSize
+        withAnimation(.spring()){
+            videoFrame = (frameSize.width, frameSize.height)
         }
     }
 }

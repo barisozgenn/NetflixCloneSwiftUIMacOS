@@ -10,6 +10,7 @@ import AVKit
 struct HeaderVideoView: View {
     @EnvironmentObject private var viewModel: HomeViewModel
     @State private var isFocused = true
+    @State private var isContentSelected = true
     var body: some View {
         ZStack(alignment: .bottomLeading){
             videoPlayerView
@@ -50,12 +51,17 @@ struct HeaderVideoView: View {
                     // content buttons
                     HStack{
                         HStack{
-                            Image(systemName: "play.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: isFocused ? 24 : 20)
-                                .opacity(0.92)
-                                .foregroundColor(.black)
+                                Image(systemName: "play.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: isFocused ? 24 : 20)
+                                    .opacity(0.92)
+                                    .foregroundColor(.black)
+                                    .sheet(isPresented: $isContentSelected) {
+                                        PlayerView()
+                                            
+                                    }
+                            
                             Text("Play")
                                 .font(isFocused ? .title2 : .title3)
                                 .foregroundColor(.black)

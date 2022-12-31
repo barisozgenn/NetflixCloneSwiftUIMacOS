@@ -11,11 +11,20 @@ struct PlayerView: View {
     @StateObject private var viewModel = PlayerViewModel()
     @State private var isControlPanelVisible = false
     @State private var isFullScreen = false
+    @State private var isVolumeHover = false
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         ZStack{
             videoPlayerView
             controlPanelView
         }
+        .frame(minWidth: viewModel.videoFrame.width,
+               idealWidth: viewModel.videoFrame.width,
+               maxWidth: viewModel.videoFrame.width,
+               minHeight: viewModel.videoFrame.height,
+               idealHeight: viewModel.videoFrame.height,
+               maxHeight: viewModel.videoFrame.height)
     }
 }
 extension PlayerView{
@@ -35,6 +44,7 @@ extension PlayerView{
                     .resizable()
                     .scaledToFit()
                     .frame(height: 24)
+                    .onTapGesture {dismiss()}
                 Spacer()
                 Image(systemName: "flag")
                     .resizable()
@@ -46,23 +56,45 @@ extension PlayerView{
             HStack{
                 Slider(value: $viewModel.videoCurrentTime, in: 0...viewModel.videoTotalSeconds)
                     .tint(.red)
+                    .foregroundColor(.red)
+                
                 Text("\(viewModel.videoDuration)")
                     .font(.headline)
             }
+            .opacity(viewModel.videoCurrentTime < 1 || isVolumeHover ? 0.07 : 1)
             HStack{
                 HStack(spacing:29){
-                    Image(systemName: "play.fill")
+                    Image(systemName: viewModel.videIsPlaying ? "pause.fill" : "play.fill")
                         .resizable()
                         .withPlayerButtonModifier(frameHeight: 27)
+                        .onTapGesture { viewModel.videoPlayStop() }
                     Image(systemName: "gobackward.10")
                         .resizable()
                         .withPlayerButtonModifier(frameHeight: 29)
+                        .onTapGesture { viewModel.videoChangeTime(isForward: false) }
                     Image(systemName: "goforward.10")
                         .resizable()
                         .withPlayerButtonModifier(frameHeight: 29)
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .withPlayerButtonModifier()
+                        .onTapGesture { viewModel.videoChangeTime() }
+                    Image(systemName: viewModel.videoVolume > 0.8  ? "speaker.wave.3.fill" :
+                            viewModel.videoVolume > 0.5  ? "speaker.wave.2.fill" :
+                            viewModel.videoVolume > 0.1  ? "speaker.wave.1.fill" : "speaker.slash.fill")
+                    .resizable()
+                    .withPlayerButtonModifier()
+                    .onTapGesture { withAnimation(.spring()){isVolumeHover.toggle()} }
+                    VStack{
+                        Slider(value: $viewModel.videoVolume, in: 0...1)
+                            .tint(.red)
+                            .frame(width: 129, height: 40)
+                            .padding(4)
+                            .background(Color(.darkGray))
+                            .rotationEffect(.degrees(-90.0))
+                            .onChange(of: viewModel.videoVolume) { _ in
+                                withAnimation(.spring()){viewModel.setVideoVolume()} }
+                    }
+                    .padding(.leading, -114)
+                    .padding(.top, -129)
+                    .opacity(isVolumeHover ? 1 : 0)
                 }
                 Text("Content title: Episode title")
                     .font(.title2)
@@ -108,7 +140,7 @@ extension PlayerView{
                                     .clear,
                                     .clear,
                                     .black.opacity(0.92)], startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+            .edgesIgnoringSafeArea(.all)
         })
     }
 }
