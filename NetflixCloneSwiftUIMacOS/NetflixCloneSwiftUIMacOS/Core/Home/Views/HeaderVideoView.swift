@@ -11,6 +11,7 @@ struct HeaderVideoView: View {
     @Environment(\.openWindow) var openWindow
     @EnvironmentObject private var viewModel: HomeViewModel
     @State private var isFocused = true
+    @State private var isHeaderVideoSelected = false
     var body: some View {
         ZStack(alignment: .bottomLeading){
             videoPlayerView
@@ -67,7 +68,14 @@ struct HeaderVideoView: View {
                         .background(.white)
                         .cornerRadius(7)
                         .onTapGesture {
-                            openWindow(id: "player-window")
+                            withAnimation(.spring()){
+                                isHeaderVideoSelected.toggle()
+                            }
+                            //openWindow(id: "player-window")
+                        }
+                        .sheet(isPresented: $isHeaderVideoSelected) {
+                            PlayerView()
+                                .presentationDragIndicator(.visible)
                         }
                         HStack{
                             Image(systemName: "info.circle")

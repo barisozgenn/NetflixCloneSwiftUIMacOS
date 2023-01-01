@@ -38,7 +38,7 @@ struct HomeView: View {
                         launchVideoView
                     }
                 }
-                .frame(minWidth: 1158, maxWidth: .infinity, minHeight: 672,maxHeight: .infinity)
+                .frame(minWidth: 1158, maxWidth: 1158, minHeight: 672,maxHeight: .infinity)
                 .background(.black)
                 .toolbar {
                     ToolbarItem(placement: .automatic) {

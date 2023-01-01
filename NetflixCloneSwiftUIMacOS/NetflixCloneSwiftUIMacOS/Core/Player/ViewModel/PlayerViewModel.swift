@@ -24,7 +24,7 @@ class PlayerViewModel: ObservableObject{
     @Published var videoTotalSeconds : Double = 1
     @Published var videIsPlaying: Bool = true
     @Published var videoVolume : Double = 1
-    @Published var videoFrame : (width: CGFloat, height: CGFloat) = (1158,672)
+    @Published var videoFrame : (width: CGFloat, height: CGFloat) = (1192,672)
     @Published var isFrameFullScreen : Bool = false
     init(){
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)

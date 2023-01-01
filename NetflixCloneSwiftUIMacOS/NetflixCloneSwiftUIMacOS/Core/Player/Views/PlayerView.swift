@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct PlayerView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @StateObject private var viewModel = PlayerViewModel()
     @State private var isControlPanelVisible = false
     @State private var isFullScreen = false
     @State private var isVolumeHover = false
-    @Environment(\.dismiss) var dismiss
+    @State private var isDissmiss = false
     
     var body: some View {
         ZStack{
@@ -25,6 +27,8 @@ struct PlayerView: View {
                minHeight: viewModel.videoFrame.height,
                idealHeight: viewModel.videoFrame.height,
                maxHeight: viewModel.videoFrame.height)
+        .scaleEffect(isDissmiss ? 0 : 1)
+        .onTapGesture{withAnimation(.spring()){isControlPanelVisible.toggle()}}
     }
 }
 extension PlayerView{
@@ -52,7 +56,9 @@ extension PlayerView{
                     .frame(height: 24)
                     .onTapGesture {
                         viewModel.videoPlayStop()
-                        dismiss()}
+                        withAnimation(.spring()){isDissmiss.toggle()}
+                        withAnimation(.easeOut(duration: 3).delay(3)){dismiss()}
+                    }
                 Spacer()
                 Image(systemName: "flag")
                     .resizable()
@@ -129,6 +135,9 @@ extension PlayerView{
                                  window.toggleFullScreen($isFullScreen)
                                  }*/
                                 viewModel.isFrameFullScreen.toggle()
+                                //NSApp.mainWindow?.standardWindowButton(.zoomButton)?.performClick(nil)
+                                
+
                             }
                         }
                 }

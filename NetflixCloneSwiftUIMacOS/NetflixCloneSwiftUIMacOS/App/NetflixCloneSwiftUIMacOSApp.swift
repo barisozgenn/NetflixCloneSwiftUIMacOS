@@ -32,8 +32,10 @@ struct NetflixCloneSwiftUIMacOSApp: App {
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1158, height: 672)
         
-        Window("", id: "player-window") {
+        /*Window("", id: "player-window") {
             PlayerView()
         }
+        .defaultPosition(.center)
+        .defaultSize(width: 1158, height: 672)*/
     }
 }
