@@ -44,6 +44,6 @@ struct NetflixCloneSwiftUIMacOSApp: App {
                 })
         }
         .defaultPosition(.center)
-        .defaultSize(width: 392, height: 514)
+        .defaultSize(width: 429, height: 514)
     }
 }

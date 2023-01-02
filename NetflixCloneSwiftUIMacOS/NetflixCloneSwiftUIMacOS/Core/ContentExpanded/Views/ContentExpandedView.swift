@@ -14,8 +14,8 @@ struct ContentExpandedView: View {
     @State private var isHeaderVideoSelected = false
     
     var body: some View {
-        ZStack(alignment:.top){
-            ZStack(alignment: .bottomLeading){
+        VStack{
+            ZStack(alignment: .top){
                 videoPlayerView
                 
                 HStack{
@@ -77,21 +77,21 @@ struct ContentExpandedView: View {
                     
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 29)
+                .padding(.top, 229)
+                
+                closeMarkView
             }
-            closeMarkView
-            VStack{
-                Spacer()
-            }
+            contentDetailView
+            Spacer()
         }
         .background(.black)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(width: 629)
     }
 }
 extension ContentExpandedView{
     private var videoPlayerView : some View {
         AVPlayerRepresented(videoPlayer: viewModel.videoPlayer)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: 370)
             .disabled(true)
             .background(.purple)
     }
@@ -106,6 +106,57 @@ extension ContentExpandedView{
                 .withPlayerButtonModifier(frameHeight: 27)
                 .onTapGesture { withAnimation(.spring()){dismiss()}}
         }
+        .padding()
+    }
+    private var contentDetailView:some View{
+        // content description
+        HStack{
+            VStack(alignment: .leading){
+                HStack{
+                    Text("92% Match")
+                        .foregroundColor(.green)
+                        .fontWeight(.bold)
+                        .font(.title3)
+                    Text("7+")
+                        .padding(2)
+                        .padding(.horizontal)
+                        .background(Rectangle().stroke(Color(.lightGray)))
+                    Text("3 Episodes")
+                        .padding(2)
+                    Text("HD")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .padding(2)
+                        .padding(.horizontal,6)
+                        .background(Rectangle().stroke(Color(.lightGray)))
+                }
+                Text("Avatar takes us to the amazing world of Pandora, where a man embarks on an epic adventure, ultimately fighting to save both the people he loves and the place he now calls home.")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            }
+            VStack(alignment: .leading){
+                // cast
+                HStack(alignment: .top){
+                    Text("Cast:")
+                        .foregroundColor(.gray)
+                    Text("artist, artis, artis")
+                }
+                // genres
+                HStack(alignment: .top){
+                    Text("Genres:")
+                        .foregroundColor(.gray)
+                    Text("Genres, Genres & Genres")
+                }
+                // this movie is
+                HStack(alignment: .top){
+                    Text("This movie is:")
+                        .foregroundColor(.gray)
+                    Text("This movie is bla la")
+                }
+            }
+        }
+        .font(.headline)
+        .foregroundColor(.white)
         .padding()
     }
 }
