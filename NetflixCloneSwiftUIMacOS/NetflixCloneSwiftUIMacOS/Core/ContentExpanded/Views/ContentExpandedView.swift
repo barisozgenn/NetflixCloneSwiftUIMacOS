@@ -15,69 +15,10 @@ struct ContentExpandedView: View {
     
     var body: some View {
         VStack{
-            ZStack(alignment: .top){
+            ZStack(alignment: .bottom){
                 videoPlayerView
                 
-                HStack{
-                    VStack(alignment: .leading,spacing: 0){
-                      
-                        // content buttons
-                        HStack{
-                            HStack{
-                                Image(systemName: "play.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: isFocused ? 24 : 20)
-                                    .opacity(0.92)
-                                    .foregroundColor(.black)
-                                
-                                Text("Play")
-                                    .font(isFocused ? .title2 : .title3)
-                                    .foregroundColor(.black)
-                            }
-                            .padding(.horizontal)
-                            .padding(.vertical,7)
-                            .background(.white)
-                            .cornerRadius(7)
-                            .onTapGesture {
-                                withAnimation(.spring()){
-                                    isHeaderVideoSelected.toggle()
-                                }
-                            }
-                            .sheet(isPresented: $isHeaderVideoSelected) {
-                                PlayerView()
-                                    .presentationDragIndicator(.visible)
-                            }
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 14)
-                                .opacity(0.92)
-                                .padding(12)
-                                .background(Circle().stroke(.white))
-                            Image(systemName: "hand.thumbsup")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 14)
-                                .opacity(0.92)
-                                .padding(12)
-                                .background(Circle().stroke(.white))
-                            Spacer()
-                            // volume
-                            Image(systemName: "speaker.wave.3")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 14)
-                                .opacity(0.92)
-                                .padding(12)
-                                .background(Circle().stroke(.white))
-                        }
-                    }
-                    .padding(.horizontal)
-                    
-                }
-                .padding(.horizontal)
-                .padding(.top, 229)
+                contentButtonsView
                 
                 closeMarkView
             }
@@ -91,22 +32,28 @@ struct ContentExpandedView: View {
 extension ContentExpandedView{
     private var videoPlayerView : some View {
         AVPlayerRepresented(videoPlayer: viewModel.videoPlayer)
-            .frame(maxWidth: .infinity, maxHeight: 370)
+            .frame(maxWidth: viewModel.videoFrame.width, maxHeight: viewModel.videoFrame.height)
             .disabled(true)
             .background(.purple)
     }
     private var closeMarkView: some View{
-        HStack{
+        VStack{
+            HStack{
+                Spacer()
+                Image(systemName: "x.circle.fill")
+                    .resizable()
+                    .foregroundColor(Color(.darkGray))
+                    .background(.white)
+                    .clipShape(Circle())
+                    .withPlayerButtonModifier(frameHeight: 27)
+                    .onTapGesture { withAnimation(.spring()){
+                        //dismiss()
+                        NSApplication.shared.windows.first(where: {$0.identifier?.rawValue ?? "" == "content-expanded-window"})?.performClose(nil)
+                    }}
+            }
+            .padding()
             Spacer()
-            Image(systemName: "x.circle.fill")
-                .resizable()
-                .foregroundColor(Color(.darkGray))
-                .background(.white)
-                .clipShape(Circle())
-                .withPlayerButtonModifier(frameHeight: 27)
-                .onTapGesture { withAnimation(.spring()){dismiss()}}
         }
-        .padding()
     }
     private var contentDetailView:some View{
         // content description
@@ -158,6 +105,81 @@ extension ContentExpandedView{
         .font(.headline)
         .foregroundColor(.white)
         .padding()
+    }
+    private var contentButtonsView: some View{
+        HStack{
+            VStack(alignment: .leading,spacing: 0){
+                // content buttons
+                HStack{
+                    HStack{
+                        Image(systemName: "play.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: isFocused ? 24 : 20)
+                            .opacity(0.92)
+                            .foregroundColor(.black)
+                        
+                        Text("Play")
+                            .font(isFocused ? .title2 : .title3)
+                            .foregroundColor(.black)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical,7)
+                    .background(.white)
+                    .cornerRadius(7)
+                    .onTapGesture {
+                        withAnimation(.spring()){
+                            isHeaderVideoSelected.toggle()
+                            //dismiss()
+                            NSApplication.shared.windows.first(where: {$0.identifier?.rawValue ?? "" == "content-expanded-window"})?.performClose(nil)
+                        }
+                    }
+                    .sheet(isPresented: $isHeaderVideoSelected) {
+                        PlayerView()
+                            .presentationDragIndicator(.visible)
+                    }
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 14)
+                        .opacity(0.92)
+                        .padding(12)
+                        .background {
+                            Circle()
+                                .strokeBorder(.white, lineWidth: 1.29)
+                                .background(Circle().fill(.black.opacity(0.29)))
+                        }
+                    Image(systemName: "hand.thumbsup")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 14)
+                        .opacity(0.92)
+                        .padding(12)
+                        .background {
+                            Circle()
+                                .strokeBorder(.white, lineWidth: 1.29)
+                                .background(Circle().fill(.black.opacity(0.29)))
+                        }
+                    Spacer()
+                    // volume
+                    Image(systemName: "speaker.wave.3")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 14)
+                        .opacity(0.92)
+                        .padding(12)
+                        .background {
+                            Circle()
+                                .strokeBorder(.white, lineWidth: 1.29)
+                                .background(Circle().fill(.black.opacity(0.29)))
+                        }
+                }
+            }
+            .padding(.horizontal)
+            
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 29)
     }
 }
 

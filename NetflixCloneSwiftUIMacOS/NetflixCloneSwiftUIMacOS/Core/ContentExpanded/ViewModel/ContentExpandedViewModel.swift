@@ -10,6 +10,7 @@ import SwiftUI
 class ContentExpandedViewModel:ObservableObject{
     @Published var videoPlayer : AVPlayer
     @Published var isVideoReadyToPlay : Bool = false
+    @Published var videoFrame : (width: CGFloat, height: CGFloat) = (629,353.81)
     
     private let randomDemoVideos = [URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!,
@@ -25,6 +26,9 @@ class ContentExpandedViewModel:ObservableObject{
         setupPlayer()
     }
     
+    deinit {
+        print("ContentExpandedViewModel: deinit")
+    }
     private func setupPlayer(){
         removePeriodicTimeObserver()
         videoPlayer.actionAtItemEnd = .pause
@@ -49,7 +53,10 @@ class ContentExpandedViewModel:ObservableObject{
                                                                 queue: .main) {
             [weak self] _ in
             // update player transport UI
-            withAnimation(.spring()){self?.isVideoReadyToPlay = true}
+            withAnimation(.spring()){
+                self?.isVideoReadyToPlay = true
+                self?.setFrameSize()
+            }
         }
     }
     private func removePeriodicTimeObserver() {
@@ -57,5 +64,9 @@ class ContentExpandedViewModel:ObservableObject{
             videoPlayer.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
+    }
+    func setFrameSize(){
+        let frameSize = videoPlayer.currentItem!.presentationSize
+        videoFrame = (629, frameSize.width < 720 ? 290 : 353.81)
     }
 }

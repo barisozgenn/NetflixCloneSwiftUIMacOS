@@ -38,12 +38,26 @@ struct NetflixCloneSwiftUIMacOSApp: App {
                 .environmentObject(ContentExpandedViewModel())
                 .preferredColorScheme(.dark)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification), perform: { _ in
-                    NSApp.mainWindow?.standardWindowButton(.closeButton)?.isHidden = true
-                    NSApp.mainWindow?.standardWindowButton(.miniaturizeButton)?.isHidden = true
-                    NSApp.mainWindow?.standardWindowButton(.zoomButton)?.isHidden = true
+                    hideToolbar()
                 })
+                .onAppear{hideToolbar()}
+                .toolbarBackground(LinearGradient(
+                    colors: [
+                        Color(.black),
+                        Color(.darkGray)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom))
+                
         }
         .defaultPosition(.center)
         .defaultSize(width: 429, height: 514)
+        
+        
+    }
+    func hideToolbar(){
+        NSApp.mainWindow?.standardWindowButton(.closeButton)?.isHidden = true
+        NSApp.mainWindow?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        NSApp.mainWindow?.standardWindowButton(.zoomButton)?.isHidden = true
     }
 }
