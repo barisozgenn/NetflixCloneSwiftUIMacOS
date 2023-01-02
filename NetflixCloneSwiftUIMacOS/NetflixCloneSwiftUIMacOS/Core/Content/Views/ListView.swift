@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ListView: View {
+    @Environment(\.openWindow) private var openWindow
+
     var title: String = "List View Title"
     @State private var isListHover = false
     @State private var hoverItemIndex = -1
@@ -37,6 +39,10 @@ struct ListView: View {
                                         }
                                     }
                                 }
+                            
+                                .onTapGesture { withAnimation(.spring()){
+                                    openWindow(id: "content-expanded-window")
+                                }}
                         }
                     }
                 }

@@ -30,6 +30,7 @@ struct ContentCellView: View {
                                 .foregroundColor(.black)
                                 .background(.white)
                                 .clipShape(Circle())
+                            
                             Image(systemName: "plus")
                                 .resizable()
                                 .scaledToFit()

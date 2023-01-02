@@ -15,7 +15,7 @@ struct HomeView: View {
     @State var islaunchScreenEnd: Bool = false
     @State var islaunchScreenRemove: Bool = false
     @State var hoverListId = "none"
-    
+
     var body: some View {
         GeometryReader { proxy in
             NavigationStack{

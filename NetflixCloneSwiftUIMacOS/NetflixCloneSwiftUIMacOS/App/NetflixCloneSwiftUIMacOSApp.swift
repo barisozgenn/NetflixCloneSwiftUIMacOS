@@ -32,10 +32,18 @@ struct NetflixCloneSwiftUIMacOSApp: App {
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1158, height: 672)
         
-        /*Window("", id: "player-window") {
-            PlayerView()
+        
+        Window("film", id: "content-expanded-window") {
+            ContentExpandedView()
+                .environmentObject(ContentExpandedViewModel())
+                .preferredColorScheme(.dark)
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification), perform: { _ in
+                    NSApp.mainWindow?.standardWindowButton(.closeButton)?.isHidden = true
+                    NSApp.mainWindow?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+                    NSApp.mainWindow?.standardWindowButton(.zoomButton)?.isHidden = true
+                })
         }
         .defaultPosition(.center)
-        .defaultSize(width: 1158, height: 672)*/
+        .defaultSize(width: 392, height: 514)
     }
 }
