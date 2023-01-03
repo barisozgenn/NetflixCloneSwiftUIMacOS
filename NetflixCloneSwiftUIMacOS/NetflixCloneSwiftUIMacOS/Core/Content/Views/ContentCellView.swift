@@ -14,7 +14,7 @@ struct ContentCellView: View {
         ZStack{
             VStack{
                 // content image and video
-                Image(systemName: "person.fill")
+                Image(systemName: "photo.artframe")
                     .frame(width: isHover ? 315 : 215, height: isHover ? 190 : 125)
                     .background(.red)
                     .cornerRadius(4)

@@ -38,7 +38,7 @@ class ContentExpandedViewModel:ObservableObject{
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.9) {
             let totalSeconds = self.videoPlayer.currentItem?.duration.seconds ?? 0
             self.videoPlayer.seek(to: CMTime(seconds: totalSeconds/2, preferredTimescale: 1))
-            self.videoPlayer.play()
+            self.videoPlayer.pause()
             self.addPeriodicTimeObserver()
             
         }

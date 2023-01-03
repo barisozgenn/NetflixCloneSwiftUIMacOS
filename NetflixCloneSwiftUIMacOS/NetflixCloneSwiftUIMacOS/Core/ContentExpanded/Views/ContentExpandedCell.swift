@@ -24,7 +24,7 @@ extension ContentExpandedCell {
     private var imageView:some View{
         ZStack{
             // content image and video
-            Image(systemName: "person.fill")
+            Image(systemName: "photo.artframe")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.red)
                 .cornerRadius(4)

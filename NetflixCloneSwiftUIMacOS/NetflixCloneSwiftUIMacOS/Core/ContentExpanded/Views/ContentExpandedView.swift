@@ -13,7 +13,7 @@ struct ContentExpandedView: View {
     @State private var isFocused = true
     @State private var isHeaderVideoSelected = false
     
-    let data = (1...100).map { "Item \($0)" }
+    let data = (0...14).map { "Item \($0)" }
 
         let columns = [
             GridItem(),
@@ -26,10 +26,15 @@ struct ContentExpandedView: View {
             VStack{
                 ZStack(alignment: .bottom){
                     videoPlayerView
-                    
                     contentButtonsView
                     
                     closeMarkView
+                }
+                .frame(height: viewModel.videoFrame.height)
+                .onHover { hover in
+                    withAnimation(.spring()){
+                        hover ? viewModel.videoPlayer.play() : viewModel.videoPlayer.pause()
+                    }
                 }
                 contentDetailView
                 listView
@@ -60,6 +65,7 @@ extension ContentExpandedView{
                     .onTapGesture { withAnimation(.spring()){
                         //dismiss()
                         NSApplication.shared.windows.first(where: {$0.identifier?.rawValue ?? "" == "content-expanded-window"})?.performClose(nil)
+                        viewModel.videoPlayer.pause()
                     }}
             }
             .padding()
@@ -143,6 +149,7 @@ extension ContentExpandedView{
                             isHeaderVideoSelected.toggle()
                             //dismiss()
                             NSApplication.shared.windows.first(where: {$0.identifier?.rawValue ?? "" == "content-expanded-window"})?.performClose(nil)
+                            viewModel.videoPlayer.pause()
                         }
                     }
                     .sheet(isPresented: $isHeaderVideoSelected) {
