@@ -7,7 +7,11 @@
 
 import Combine
 import Foundation
-class ContentService {
+import RealmSwift
+
+let realmApp = RealmSwift.App(id: "create your own realm")
+
+final class ContentService {
     static let shared = ContentService()
     lazy var contents : [ContentModel] = []
     

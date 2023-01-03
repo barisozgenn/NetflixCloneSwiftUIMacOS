@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 @main
-struct NetflixCloneSwiftUIMacOSApp: App {
+struct NetflixCloneSwiftUIMacOSApp: SwiftUI.App {
+    @NSApplicationDelegateAdaptor(CustomAppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             //HomeView()
@@ -33,7 +36,7 @@ struct NetflixCloneSwiftUIMacOSApp: App {
         .defaultSize(width: 1158, height: 672)
         
         
-        Window("film", id: "content-expanded-window") {
+        Window("", id: "content-expanded-window") {
             ContentExpandedView()
                 .environmentObject(ContentExpandedViewModel())
                 .preferredColorScheme(.dark)
@@ -60,4 +63,26 @@ struct NetflixCloneSwiftUIMacOSApp: App {
         NSApp.mainWindow?.standardWindowButton(.miniaturizeButton)?.isHidden = true
         NSApp.mainWindow?.standardWindowButton(.zoomButton)?.isHidden = true
     }
+}
+class CustomAppDelegate: NSObject, NSApplicationDelegate {
+    
+
+    func applicationDidFinishLaunching(_ notify: Notification)  {
+        
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+            })
+        
+        Realm.Configuration.defaultConfiguration = config
+    }
+    
 }

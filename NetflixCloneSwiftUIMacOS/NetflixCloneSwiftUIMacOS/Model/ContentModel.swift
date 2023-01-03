@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - ContentModel
 struct ContentModel: Identifiable, Codable {
@@ -24,4 +25,53 @@ struct Episode: Identifiable, Codable {
     let episodeDescription: String
     let durationInMinute: Int
     let videoURL: String
+}
+
+class ContentRealmModel: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) dynamic var id: String = UUID().uuidString
+    @Persisted var name: String
+    
+    @Persisted var maturityRatings: List<String>
+    @Persisted var genres: List<String>
+    @Persisted var categories: List<String>
+    
+    @Persisted var year: String
+    
+    @Persisted var artist: List<String>
+    
+    @Persisted var match: String
+    
+    @Persisted var imageBase64: String
+    
+    @Persisted var episodes: List<EpisodeRealm>
+    
+    convenience init(name: String, maturityRatings: List<String>,
+                     genres: List<String>,categories: List<String>,
+                     year: String,artist: List<String>,
+                     match: String,imageBase64: String, episodes: List<EpisodeRealm>) {
+        self.init()
+        self.name = name
+        self.maturityRatings = maturityRatings
+        self.genres = genres
+        self.categories = categories
+        self.year = year
+        self.artist = artist
+        self.match = match
+        self.imageBase64 = imageBase64
+        self.episodes = episodes
+    }
+}
+
+class EpisodeRealm: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) dynamic var id: String = UUID().uuidString
+    @Persisted var episodeDescription: String
+    @Persisted var durationInMinute: Int
+    @Persisted var videoURL: String
+    
+    convenience init(episodeDescription: String, durationInMinute: Int,videoURL: String) {
+        self.init()
+        self.episodeDescription = episodeDescription
+        self.durationInMinute = durationInMinute
+        self.videoURL = videoURL
+    }
 }
