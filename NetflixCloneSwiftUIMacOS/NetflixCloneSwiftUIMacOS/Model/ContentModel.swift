@@ -28,7 +28,7 @@ struct Episode: Identifiable, Codable {
 }
 
 class ContentRealmModel: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) dynamic var id: String = UUID().uuidString
+    @Persisted(primaryKey: true) dynamic var _id: String = UUID().uuidString
     @Persisted var name: String
     
     @Persisted var maturityRatings: List<String>
@@ -63,7 +63,7 @@ class ContentRealmModel: Object, ObjectKeyIdentifiable {
 }
 
 class EpisodeRealm: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) dynamic var id: String = UUID().uuidString
+    @Persisted(primaryKey: true) dynamic var _id: String = UUID().uuidString
     @Persisted var episodeDescription: String
     @Persisted var durationInMinute: Int
     @Persisted var videoURL: String

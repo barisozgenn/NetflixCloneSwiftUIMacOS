@@ -6,12 +6,15 @@
 //
 
 import AVKit
+import RealmSwift
+
 class HomeViewModel: ObservableObject {
     @Published var contentTitles: [String] = ["Trending Now","Documentaries", "Only on Netflix","Watch In One Weekend"]
     @Published var headerVideoPlayer = AVPlayer(url: Bundle.main.url(forResource: "avatar-intro", withExtension: "mp4")!)
+    @ObservedResults(ContentRealmModel.self) var contents
+    lazy var service = ContentService()
     
     init(){
-        
         headerVideoPlayer.isMuted = true
         headerVideoPlayer.actionAtItemEnd = .none
         NotificationCenter.default.addObserver(self,
@@ -19,6 +22,7 @@ class HomeViewModel: ObservableObject {
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: headerVideoPlayer.currentItem)
         headerVideoPlayer.play()
+        service.fetchContentsFromRealm()
     }
     
     @objc func playerItemDidReachEnd(notification: Notification) {

@@ -9,15 +9,34 @@ import Combine
 import Foundation
 import RealmSwift
 
-let realmApp = RealmSwift.App(id: "")
+let realmApp = RealmSwift.App(id: "change here with your own app id")
 
 final class ContentService: ObservableObject {
     @ObservedResults(ContentRealmModel.self) var contents
     lazy var contentsJson: [ContentModel] = []
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
-        fetchContentsFromRealm()
+    public func fetchContentsFromRealm(){
+        if let currentUser = realmApp.currentUser {
+            var userConfig = currentUser.configuration(partitionValue: currentUser.id)
+            userConfig.objectTypes = [ContentRealmModel.self, EpisodeRealm.self]
+            
+            Realm.asyncOpen(configuration: userConfig)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { result in
+                    if case let .failure(error) = result {
+                        print("DEBUG: Failed to open realm: \(error.localizedDescription)")
+                    }
+                }, receiveValue: {[weak self] _ in
+                    if self?.contents.count ?? 0 < 1 {
+                        self?.fetchContentsFromJSON(forName: "movies")
+                    }
+                    print("DEBUG: realm item counts: \(self?.contents.count ?? 0)")
+                })
+                .store(in: &cancellables)
+        }else {
+            auth()
+        }
     }
     
     private func fetchContentsFromJSON(forName fileName: String) {
@@ -27,11 +46,11 @@ final class ContentService: ObservableObject {
                 let decoder = JSONDecoder()
                 let jsonData = try decoder.decode([ContentModel].self, from: data)
                 contentsJson = jsonData
-                
+                print("DEBUG: json item counts: \(contentsJson.count)")
                 for content in contentsJson {
                     let realm = try! Realm()
                     try! realm.write {
-                        var newContent = ContentRealmModel(name: content.name,
+                        let newContent = ContentRealmModel(name: content.name,
                                                            maturityRatings: List<String>(),
                                                            genres: List<String>(),
                                                            categories: List<String>(),
@@ -66,29 +85,6 @@ final class ContentService: ObservableObject {
             }
         }
     }
-    
-    private func fetchContentsFromRealm(){
-        if let currentUser = realmApp.currentUser {
-            var userConfig = currentUser.configuration(partitionValue: currentUser.id)
-            userConfig.objectTypes = [ContentRealmModel.self]
-            
-            Realm.asyncOpen(configuration: userConfig)
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { result in
-                    if case let .failure(error) = result {
-                        print("DEBUG: Failed to open realm: \(error.localizedDescription)")
-                    }
-                }, receiveValue: {[weak self] _ in
-                    if self?.contents.count == 0 {
-                        self?.fetchContentsFromJSON(forName: "movies")
-                    }
-                })
-                .store(in: &cancellables)
-        }else {
-            auth()
-        }
-    }
-    
     private func auth() {
         realmApp.login(credentials: .anonymous)
             .receive(on: DispatchQueue.main)
