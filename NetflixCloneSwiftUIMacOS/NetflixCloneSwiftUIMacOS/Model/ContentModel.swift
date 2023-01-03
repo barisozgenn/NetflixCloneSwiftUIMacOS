@@ -8,8 +8,9 @@
 import Foundation
 
 // MARK: - ContentModel
-struct ContentModel {
-    let id, name, imageBase64: String
+struct ContentModel: Identifiable, Codable {
+    let id: String
+    let name, imageBase64: String
     let maturityRatings, genres, categories: [String]
     let year: String
     let artists: [String]
@@ -18,8 +19,9 @@ struct ContentModel {
 }
 
 // MARK: - Episode
-struct Episode {
-    let id, episodeDescription: String
+struct Episode: Identifiable, Codable {
+    let id: String
+    let episodeDescription: String
     let durationInMinute: Int
     let videoURL: String
 }

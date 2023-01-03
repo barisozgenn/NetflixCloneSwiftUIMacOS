@@ -32,6 +32,7 @@
 		AF8FE8C82962C38D00204EF7 /* ContentExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8C72962C38D00204EF7 /* ContentExpandedView.swift */; };
 		AF8FE8CA2962C4B300204EF7 /* ContentExpandedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8C92962C4B300204EF7 /* ContentExpandedViewModel.swift */; };
 		AF8FE8CC2964005E00204EF7 /* ContentExpandedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */; };
+		AF8FE8CF29641F5500204EF7 /* ContentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8CE29641F5500204EF7 /* ContentAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		AF8FE8C72962C38D00204EF7 /* ContentExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedView.swift; sourceTree = "<group>"; };
 		AF8FE8C92962C4B300204EF7 /* ContentExpandedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedViewModel.swift; sourceTree = "<group>"; };
 		AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedCell.swift; sourceTree = "<group>"; };
+		AF8FE8CE29641F5500204EF7 /* ContentAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				AF1E41BE295F037300E04277 /* Info.plist */,
+				AF8FE8CD29641F4000204EF7 /* API */,
 				AF1E41B4295E147F00E04277 /* Model */,
 				AF1E41C2296027FF00E04277 /* Extensions */,
 				AF1E418D29599FF700E04277 /* Core */,
@@ -308,6 +311,14 @@
 				AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AF8FE8CD29641F4000204EF7 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				AF8FE8CE29641F5500204EF7 /* ContentAPI.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8FE8CF29641F5500204EF7 /* ContentAPI.swift in Sources */,
 				AF8FE8CC2964005E00204EF7 /* ContentExpandedCell.swift in Sources */,
 				AF8FE8C82962C38D00204EF7 /* ContentExpandedView.swift in Sources */,
 				AF8FE8CA2962C4B300204EF7 /* ContentExpandedViewModel.swift in Sources */,
