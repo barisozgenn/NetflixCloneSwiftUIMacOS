@@ -31,6 +31,7 @@
 		AF6575CE29263A910069C2DF /* netflix-intro-for-launch.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AF6575CC29263A910069C2DF /* netflix-intro-for-launch.mp4 */; };
 		AF8FE8C82962C38D00204EF7 /* ContentExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8C72962C38D00204EF7 /* ContentExpandedView.swift */; };
 		AF8FE8CA2962C4B300204EF7 /* ContentExpandedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8C92962C4B300204EF7 /* ContentExpandedViewModel.swift */; };
+		AF8FE8CC2964005E00204EF7 /* ContentExpandedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		AF6575CC29263A910069C2DF /* netflix-intro-for-launch.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "netflix-intro-for-launch.mp4"; sourceTree = "<group>"; };
 		AF8FE8C72962C38D00204EF7 /* ContentExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedView.swift; sourceTree = "<group>"; };
 		AF8FE8C92962C4B300204EF7 /* ContentExpandedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedViewModel.swift; sourceTree = "<group>"; };
+		AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				AF8FE8C72962C38D00204EF7 /* ContentExpandedView.swift */,
+				AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8FE8CC2964005E00204EF7 /* ContentExpandedCell.swift in Sources */,
 				AF8FE8C82962C38D00204EF7 /* ContentExpandedView.swift in Sources */,
 				AF8FE8CA2962C4B300204EF7 /* ContentExpandedViewModel.swift in Sources */,
 				AF1E41C42960283C00E04277 /* View.swift in Sources */,

@@ -13,17 +13,28 @@ struct ContentExpandedView: View {
     @State private var isFocused = true
     @State private var isHeaderVideoSelected = false
     
+    let data = (1...100).map { "Item \($0)" }
+
+        let columns = [
+            GridItem(),
+            GridItem(),
+            GridItem()
+        ]
+    
     var body: some View {
-        VStack{
-            ZStack(alignment: .bottom){
-                videoPlayerView
-                
-                contentButtonsView
-                
-                closeMarkView
+        ScrollView{
+            VStack{
+                ZStack(alignment: .bottom){
+                    videoPlayerView
+                    
+                    contentButtonsView
+                    
+                    closeMarkView
+                }
+                contentDetailView
+                listView
+                Spacer()
             }
-            contentDetailView
-            Spacer()
         }
         .background(.black)
         .frame(width: 629)
@@ -180,6 +191,20 @@ extension ContentExpandedView{
         }
         .padding(.horizontal)
         .padding(.bottom, 29)
+    }
+    private var listView: some View{
+        VStack(alignment:.leading){
+            Text("More Like This")
+                .foregroundColor(.white)
+                .font(.title)
+                .padding(.horizontal)
+            LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(data, id: \.self) { item in
+                                ContentExpandedCell()
+                            }
+                        }
+                        .padding(.horizontal)
+        }
     }
 }
 
