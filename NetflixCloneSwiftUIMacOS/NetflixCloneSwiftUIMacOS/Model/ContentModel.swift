@@ -37,7 +37,7 @@ class ContentRealmModel: Object, ObjectKeyIdentifiable {
     
     @Persisted var year: String
     
-    @Persisted var artist: List<String>
+    @Persisted var artists: List<String>
     
     @Persisted var match: String
     
@@ -47,7 +47,7 @@ class ContentRealmModel: Object, ObjectKeyIdentifiable {
     
     convenience init(name: String, maturityRatings: List<String>,
                      genres: List<String>,categories: List<String>,
-                     year: String,artist: List<String>,
+                     year: String,artists: List<String>,
                      match: String,imageBase64: String, episodes: List<EpisodeRealm>) {
         self.init()
         self.name = name
@@ -55,7 +55,7 @@ class ContentRealmModel: Object, ObjectKeyIdentifiable {
         self.genres = genres
         self.categories = categories
         self.year = year
-        self.artist = artist
+        self.artists = artists
         self.match = match
         self.imageBase64 = imageBase64
         self.episodes = episodes
