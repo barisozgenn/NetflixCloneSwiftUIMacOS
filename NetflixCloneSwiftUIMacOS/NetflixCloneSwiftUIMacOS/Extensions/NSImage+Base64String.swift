@@ -9,8 +9,10 @@ import SwiftUI
 
 extension String {
     func convertBase64ToNSImage () -> NSImage {
-        let imageData = Data(base64Encoded: self)
-        let image = NSImage(data: imageData!)
-        return image!
+        guard let imageData = Data(base64Encoded: self) else {return NSImage(imageLiteralResourceName: "netflix-clone-swifui-barisozgen–app") }
+        let image = NSImage(data: imageData) ?? NSImage(imageLiteralResourceName: "netflix-clone-swifui-barisozgen–app")
+            return image
+        
+        
     }
 }

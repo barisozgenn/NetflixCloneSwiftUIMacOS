@@ -23,6 +23,9 @@ class HomeViewModel: ObservableObject {
                                                object: headerVideoPlayer.currentItem)
         headerVideoPlayer.play()
         service.fetchContentsFromRealm()
+        contents.forEach { item in
+            print("ITEM: \(item.name) \(item.imageBase64.count)")
+        }
     }
     
     @objc func playerItemDidReachEnd(notification: Notification) {

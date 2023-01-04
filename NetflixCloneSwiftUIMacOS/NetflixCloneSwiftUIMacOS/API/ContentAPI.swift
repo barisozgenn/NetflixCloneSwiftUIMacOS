@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import RealmSwift
 
-let realmApp = RealmSwift.App(id: "change here with your own app id")
+let realmApp = RealmSwift.App(id: "chat-baris-wshnz")
 
 final class ContentService: ObservableObject {
     @ObservedResults(ContentRealmModel.self) var contents

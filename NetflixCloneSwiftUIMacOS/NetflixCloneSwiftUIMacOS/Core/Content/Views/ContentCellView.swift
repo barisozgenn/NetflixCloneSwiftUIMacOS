@@ -19,14 +19,15 @@ struct ContentCellView: View {
         ZStack{
             VStack{
                 // content image and video
-                Image(systemName: "photo.artframe")
-                    
+                Image(nsImage: image)
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: isHover ? 315 : 215, height: isHover ? 190 : 125)
                     .background(.red)
                     .cornerRadius(4)
                     .onAppear{
                         withAnimation(.spring()){
-                           // image = content.imageBase64.convertBase64ToNSImage()
+                            image = content.imageBase64.convertBase64ToNSImage()
                         }
                     }
                 if isHover {
