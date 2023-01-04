@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ContentExpandedCell: View {
     @State var isHover = false
+    @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
+    @State private var categories: String = ""
+    @State private var image: NSImage = NSImage(imageLiteralResourceName: "photo.artframe")
+    
     var body: some View {
         VStack{
             imageView
@@ -24,11 +29,17 @@ extension ContentExpandedCell {
     private var imageView:some View{
         ZStack{
             // content image and video
-            Image(systemName: "photo.artframe")
+            Image(nsImage: image)
+                .resizable()
+                .scaledToFill()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.red)
                 .cornerRadius(4)
-            
+                .onAppear{
+                    withAnimation(.spring()){
+                        image = content.imageBase64.convertBase64ToNSImage()
+                    }
+                }
             // duration
             VStack{
                 HStack{
@@ -65,16 +76,16 @@ extension ContentExpandedCell {
             // top
             HStack{
                 VStack(alignment: .leading){
-                    Text("92% Match")
+                    Text("\(content.match)% Match")
                         .foregroundColor(.green)
                         .fontWeight(.bold)
                         .font(.title3)
                     HStack{
-                        Text("7+")
+                        Text(content.maturityRatings.first ?? "7+")
                             .padding(2)
                             .padding(.horizontal)
                             .background(Rectangle().stroke(Color(.lightGray)))
-                        Text("2023")
+                        Text("\(content.year)")
                             .padding(2)
                     }
                 }
@@ -92,7 +103,7 @@ extension ContentExpandedCell {
                     }
             }
             // bottom
-            Text("Avatar takes us to the amazing world of Pandora, where a man embarks on an epic adventure, ultimately fighting to save both the people he loves and the place he now calls home.")
+            Text(content.episodes.first?.episodeDescription ?? "lorem ipsum baris")
                 .lineLimit(7)
                 .padding(.top)
         }

@@ -6,18 +6,30 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ContentCellView: View {
     @State var canHover = false
     @State var isHover = false
+    @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
+    @State private var categories: String = ""
+    @State private var image: NSImage = NSImage(imageLiteralResourceName: "photo.artframe")
+    
     var body: some View {
         ZStack{
             VStack{
                 // content image and video
-                Image(systemName: "photo.artframe")
+                Image(nsImage: image)
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: isHover ? 315 : 215, height: isHover ? 190 : 125)
                     .background(.red)
                     .cornerRadius(4)
+                    .onAppear{
+                        withAnimation(.spring()){
+                            image = content.imageBase64.convertBase64ToNSImage()
+                        }
+                    }
                 if isHover {
                     VStack(alignment: .leading){
                         // content control buttons
@@ -56,15 +68,15 @@ struct ContentCellView: View {
                         }
                         // content description
                         HStack{
-                            Text("92% Match")
+                            Text("\(content.match)% Match")
                                 .foregroundColor(.green)
                                 .fontWeight(.bold)
                                 .font(.title3)
-                            Text("7+")
+                            Text(content.maturityRatings.first ?? "+7")
                                 .padding(2)
                                 .padding(.horizontal)
                                 .background(Rectangle().stroke(Color(.lightGray)))
-                            Text("3 Episodes")
+                            Text(content.year)
                                 .padding(2)
                             Text("HD")
                                 .font(.subheadline)
@@ -77,9 +89,16 @@ struct ContentCellView: View {
                         .foregroundColor(.white)
                         .padding(.vertical)
                         // content categories
-                        Text("Category • Category • Category")
+                        Text(categories)
                             .font(.title3)
                             .fontWeight(.regular)
+                            .onAppear{
+                                var cats = ""
+                                content.categories.forEach { category in
+                                    cats += "\(category) • "
+                                }
+                                categories = String(cats.dropLast(3))
+                            }
                     }
                     .padding()
                   
