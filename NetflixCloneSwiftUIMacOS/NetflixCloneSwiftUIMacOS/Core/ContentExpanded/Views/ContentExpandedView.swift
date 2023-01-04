@@ -12,14 +12,14 @@ struct ContentExpandedView: View {
     @EnvironmentObject private var viewModel: ContentExpandedViewModel
     @State private var isFocused = true
     @State private var isHeaderVideoSelected = false
-    
-    let data = (0...14).map { "Item \($0)" }
-
-        let columns = [
-            GridItem(),
-            GridItem(),
-            GridItem()
-        ]
+    @State private var cast: String = ""
+    @State private var genres: String = ""
+    @State private var thisIs: String = ""
+    let columns = [
+        GridItem(),
+        GridItem(),
+        GridItem()
+    ]
     
     var body: some View {
         ScrollView{
@@ -77,15 +77,15 @@ extension ContentExpandedView{
         HStack{
             VStack(alignment: .leading){
                 HStack{
-                    Text("92% Match")
+                    Text("\(viewModel.content.match)% Match")
                         .foregroundColor(.green)
                         .fontWeight(.bold)
                         .font(.title3)
-                    Text("7+")
+                    Text(viewModel.content.maturityRatings.first ?? "7+")
                         .padding(2)
                         .padding(.horizontal)
                         .background(Rectangle().stroke(Color(.lightGray)))
-                    Text("3 Episodes")
+                    Text(viewModel.content.year)
                         .padding(2)
                     Text("HD")
                         .font(.subheadline)
@@ -94,7 +94,7 @@ extension ContentExpandedView{
                         .padding(.horizontal,6)
                         .background(Rectangle().stroke(Color(.lightGray)))
                 }
-                Text("Avatar takes us to the amazing world of Pandora, where a man embarks on an epic adventure, ultimately fighting to save both the people he loves and the place he now calls home.")
+                Text(viewModel.content.episodes.first?.episodeDescription ?? "baris lorem ipsum")
                     .font(.headline)
                     .foregroundColor(.white)
             }
@@ -103,19 +103,40 @@ extension ContentExpandedView{
                 HStack(alignment: .top){
                     Text("Cast:")
                         .foregroundColor(.gray)
-                    Text("artist, artis, artis")
+                    Text(cast)
+                        .onAppear{
+                            var items = ""
+                            viewModel.content.artists.forEach { item in
+                                items += "\(item), "
+                            }
+                            cast = String(items.dropLast(2))
+                        }
                 }
                 // genres
                 HStack(alignment: .top){
                     Text("Genres:")
                         .foregroundColor(.gray)
-                    Text("Genres, Genres & Genres")
+                    Text(genres)
+                        .onAppear{
+                            var items = ""
+                            viewModel.content.genres.forEach { item in
+                                items += "\(item), "
+                            }
+                            genres = String(items.dropLast(2))
+                        }
                 }
                 // this movie is
                 HStack(alignment: .top){
                     Text("This movie is:")
                         .foregroundColor(.gray)
-                    Text("This movie is bla la")
+                    Text(thisIs)
+                        .onAppear{
+                            var items = ""
+                            viewModel.content.categories.forEach { item in
+                                items += "\(item), "
+                            }
+                            thisIs = String(items.dropLast(2))
+                        }
                 }
             }
         }
@@ -206,11 +227,11 @@ extension ContentExpandedView{
                 .font(.title)
                 .padding(.horizontal)
             LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(data, id: \.self) { item in
-                                ContentExpandedCell()
-                            }
-                        }
-                        .padding(.horizontal)
+                ForEach(viewModel.contents, id: \.self) { item in
+                    ContentExpandedCell(content: item)
+                }
+            }
+            .padding(.horizontal)
         }
     }
 }

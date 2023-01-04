@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-
+import RealmSwift
 struct ListView: View {
     @Environment(\.openWindow) private var openWindow
-
+    @ObservedResults(ContentRealmModel.self) private var contents
     var title: String = "List View Title"
     @State private var isListHover = false
     @State private var hoverItemIndex = -1
@@ -23,15 +23,16 @@ struct ListView: View {
                 
                 ScrollView(.horizontal){
                     ZStack{
-                        ForEach(0...20, id: \.self) { item in
-                            ContentCellView(canHover: true)
-                                .position(x: CGFloat(item) * 218.0, y: 200)
-                                .shadow(color: hoverItemIndex == item ? .black : .clear, radius: 4, x: 2, y: 2)
-                                .zIndex(hoverItemIndex == item ? 7 : 1)
+                        ForEach(contents, id: \._id) {item in
+                            let index = contents.firstIndex(of: item)!
+                            ContentCellView(canHover: true, content: item)
+                                .position(x: CGFloat(index) * 218.0, y: 200)
+                                .shadow(color: hoverItemIndex == index ? .black : .clear, radius: 4, x: 2, y: 2)
+                                .zIndex(hoverItemIndex == index ? 7 : 1)
                                 .onHover { hover in
                                     if hover {
                                         withAnimation(.spring()){
-                                            hoverItemIndex = item
+                                            hoverItemIndex = index
                                         }
                                     }else {
                                         withAnimation(.spring()){

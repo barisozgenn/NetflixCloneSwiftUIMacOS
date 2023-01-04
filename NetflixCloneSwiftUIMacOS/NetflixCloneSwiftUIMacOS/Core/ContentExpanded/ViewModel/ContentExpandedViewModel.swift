@@ -7,10 +7,14 @@
 
 import AVKit
 import SwiftUI
+import RealmSwift
+
 class ContentExpandedViewModel:ObservableObject{
     @Published var videoPlayer : AVPlayer
     @Published var isVideoReadyToPlay : Bool = false
     @Published var videoFrame : (width: CGFloat, height: CGFloat) = (629,353.81)
+    @ObservedResults(ContentRealmModel.self) var contents
+    @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
     
     private let randomDemoVideos = [URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!,
@@ -24,6 +28,7 @@ class ContentExpandedViewModel:ObservableObject{
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
         setupPlayer()
+        content = contents.first!
     }
     
     deinit {
