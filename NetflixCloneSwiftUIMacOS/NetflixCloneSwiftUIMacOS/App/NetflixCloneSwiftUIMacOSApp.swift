@@ -14,6 +14,8 @@ struct NetflixCloneSwiftUIMacOSApp: SwiftUI.App {
 
     var body: some Scene {
         WindowGroup {
+            let _ = print("DEBUG: Realm Path: \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path())")
+
             HomeView()
             // PlayerView()
                 .environmentObject(HomeViewModel())

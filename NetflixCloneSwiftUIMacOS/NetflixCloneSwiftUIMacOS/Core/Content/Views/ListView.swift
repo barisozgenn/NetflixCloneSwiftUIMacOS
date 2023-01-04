@@ -9,7 +9,8 @@ import SwiftUI
 import RealmSwift
 struct ListView: View {
     @Environment(\.openWindow) private var openWindow
-    @ObservedResults(ContentRealmModel.self) private var contents
+    @ObservedResults(ContentRealmModel.self, sortDescriptor: SortDescriptor(keyPath: "_id", ascending: true)) var contents
+
     var title: String = "List View Title"
     @State private var isListHover = false
     @State private var hoverItemIndex = -1
@@ -61,9 +62,9 @@ struct ListView: View {
         .padding(.top, -129)
     }
 }
-
+/*
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         ListView()
     }
-}
+}*/

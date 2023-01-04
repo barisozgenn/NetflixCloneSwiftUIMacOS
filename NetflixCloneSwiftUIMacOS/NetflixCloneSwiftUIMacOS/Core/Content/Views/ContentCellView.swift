@@ -11,23 +11,22 @@ import RealmSwift
 struct ContentCellView: View {
     @State var canHover = false
     @State var isHover = false
-    @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
+    @ObservedRealmObject var content: ContentRealmModel
     @State private var categories: String = ""
-    @State private var image: NSImage = NSImage(imageLiteralResourceName: "photo.artframe")
+    @State private var image: NSImage = NSImage(systemSymbolName: "photo.artframe", accessibilityDescription: "baris")!
     
     var body: some View {
         ZStack{
             VStack{
                 // content image and video
-                Image(nsImage: image)
-                    .resizable()
-                    .scaledToFill()
+                Image(systemName: "photo.artframe")
+                    
                     .frame(width: isHover ? 315 : 215, height: isHover ? 190 : 125)
                     .background(.red)
                     .cornerRadius(4)
                     .onAppear{
                         withAnimation(.spring()){
-                            image = content.imageBase64.convertBase64ToNSImage()
+                           // image = content.imageBase64.convertBase64ToNSImage()
                         }
                     }
                 if isHover {
@@ -115,9 +114,10 @@ struct ContentCellView: View {
         }
     }
 }
-
+/*
 struct ContentCellView_Previews: PreviewProvider {
     static var previews: some View {
         ContentCellView()
     }
 }
+*/

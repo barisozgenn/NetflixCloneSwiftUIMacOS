@@ -12,7 +12,7 @@ struct ContentExpandedCell: View {
     @State var isHover = false
     @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
     @State private var categories: String = ""
-    @State private var image: NSImage = NSImage(imageLiteralResourceName: "photo.artframe")
+    @State private var image: NSImage = NSImage(systemSymbolName: "photo.artframe", accessibilityDescription: "baris")!
     
     var body: some View {
         VStack{
@@ -44,7 +44,7 @@ extension ContentExpandedCell {
             VStack{
                 HStack{
                     Spacer()
-                    Text("1h 29m")
+                    Text(Double(content.episodes.first?.durationInMinute ?? 0).toHhMmSs(style: .brief))
                         .font(.headline)
                         .fontWeight(.semibold)
                         .shadow(color: .black, radius: 3, x:1, y:1)

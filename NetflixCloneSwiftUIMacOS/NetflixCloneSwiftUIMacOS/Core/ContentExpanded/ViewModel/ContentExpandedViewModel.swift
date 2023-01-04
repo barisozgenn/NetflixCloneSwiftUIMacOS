@@ -28,7 +28,9 @@ class ContentExpandedViewModel:ObservableObject{
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
         setupPlayer()
-        content = contents.first!
+        if let selectedContent = contents.first {
+            content = selectedContent
+        } 
     }
     
     deinit {

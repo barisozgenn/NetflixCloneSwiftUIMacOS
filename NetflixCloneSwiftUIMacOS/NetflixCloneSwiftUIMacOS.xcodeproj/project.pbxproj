@@ -36,6 +36,7 @@
 		AF8FE8D22964239A00204EF7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AF8FE8D12964239A00204EF7 /* Realm */; };
 		AF8FE8D42964239A00204EF7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AF8FE8D32964239A00204EF7 /* RealmSwift */; };
 		AF8FE8D72965865E00204EF7 /* NSImage+Base64String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8D62965865E00204EF7 /* NSImage+Base64String.swift */; };
+		AF8FE8D92965955D00204EF7 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8FE8D82965955C00204EF7 /* Double.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		AF8FE8CB2964005E00204EF7 /* ContentExpandedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExpandedCell.swift; sourceTree = "<group>"; };
 		AF8FE8CE29641F5500204EF7 /* ContentAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentAPI.swift; sourceTree = "<group>"; };
 		AF8FE8D62965865E00204EF7 /* NSImage+Base64String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Base64String.swift"; sourceTree = "<group>"; };
+		AF8FE8D82965955C00204EF7 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			children = (
 				AF1E41C32960283C00E04277 /* View.swift */,
 				AF8FE8D62965865E00204EF7 /* NSImage+Base64String.swift */,
+				AF8FE8D82965955C00204EF7 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				AF1E41C42960283C00E04277 /* View.swift in Sources */,
 				AF1E41A1295AE6BC00E04277 /* HeaderVideoView.swift in Sources */,
 				AF8FE8D72965865E00204EF7 /* NSImage+Base64String.swift in Sources */,
+				AF8FE8D92965955D00204EF7 /* Double.swift in Sources */,
 				AF1E41942959AAA700E04277 /* AVPlayerRepresented.swift in Sources */,
 				AF1E41A9295C1FA100E04277 /* ListHeaderView.swift in Sources */,
 				AF1E419D2959BFC300E04277 /* HomeToolBarView.swift in Sources */,

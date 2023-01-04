@@ -85,7 +85,7 @@ extension HomeView {
     }
     private var contentListsView: some View {
         ForEach(Array(viewModel.contentTitles.enumerated()), id: \.offset) {index, title in
-            ListView(title: title)
+            ListView(contents: viewModel.$contents, title: title)
                 .padding(.top,index == 0 ? -100 : 0)
                 .onHover { hover in
                     if hover {
