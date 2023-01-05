@@ -261,15 +261,15 @@
 		AF6575B42926242D0069C2DF /* NetflixCloneSwiftUIMacOS */ = {
 			isa = PBXGroup;
 			children = (
-				AF1E41BE295F037300E04277 /* Info.plist */,
 				AF8FE8CD29641F4000204EF7 /* API */,
 				AF1E41B4295E147F00E04277 /* Model */,
 				AF1E41C2296027FF00E04277 /* Extensions */,
 				AF1E418D29599FF700E04277 /* Core */,
 				AF6575CA29263A780069C2DF /* Resources */,
 				AF6575C4292639E60069C2DF /* App */,
-				AF6575BE2926242E0069C2DF /* NetflixCloneSwiftUIMacOS.entitlements */,
 				AF6575BB2926242E0069C2DF /* Preview Content */,
+				AF6575BE2926242E0069C2DF /* NetflixCloneSwiftUIMacOS.entitlements */,
+				AF1E41BE295F037300E04277 /* Info.plist */,
 			);
 			path = NetflixCloneSwiftUIMacOS;
 			sourceTree = "<group>";
@@ -303,8 +303,8 @@
 		AF8FE8C42962C36500204EF7 /* ContentExpanded */ = {
 			isa = PBXGroup;
 			children = (
-				AF8FE8C62962C37800204EF7 /* Views */,
 				AF8FE8C52962C37200204EF7 /* ViewModel */,
+				AF8FE8C62962C37800204EF7 /* Views */,
 			);
 			path = ContentExpanded;
 			sourceTree = "<group>";

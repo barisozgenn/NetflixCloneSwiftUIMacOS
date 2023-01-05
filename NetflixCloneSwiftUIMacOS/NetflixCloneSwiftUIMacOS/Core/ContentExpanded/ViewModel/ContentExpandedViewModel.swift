@@ -7,7 +7,6 @@
 
 import AVKit
 import SwiftUI
-import RealmSwift
 
 class ContentExpandedViewModel:ObservableObject{
     @Published var videoPlayer : AVPlayer
@@ -16,7 +15,7 @@ class ContentExpandedViewModel:ObservableObject{
     @Published var content: ContentRealmModel?
     @Published var imageOpacity = 1.0
     @Published var contents: [ContentRealmModel] = []
-    
+
     private let randomDemoVideos = [URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4")!,
@@ -29,12 +28,7 @@ class ContentExpandedViewModel:ObservableObject{
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
         setupPlayer()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.fetchSelectedContent(_:)),
-                                               name: NSNotification.Name(rawValue: "selectedContent"),
-                                               object: nil)
-        
+        notificationObservers()
     }
     
     deinit {
@@ -70,6 +64,14 @@ class ContentExpandedViewModel:ObservableObject{
             }
         }
     }
+    private func notificationObservers(){
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.fetchSelectedContent(_:)),
+                                               name: NSNotification.Name(rawValue: "selectedContent"),
+                                               object: nil)
+        
+        // moreLikeContents: contents.sorted(by: {$0.episodes.first!.episodeDescription.count > $1.episodes.first!.episodeDescription.count}).prefix(9).shuffled()
+    }
     private func removePeriodicTimeObserver() {
         if let timeObserverToken = timeObserverToken {
             videoPlayer.removeTimeObserver(timeObserverToken)
@@ -83,8 +85,8 @@ class ContentExpandedViewModel:ObservableObject{
     
     @objc func fetchSelectedContent(_ notification: NSNotification){
         if let selectedContent = notification.object as? ContentRealmModel {
-            imageOpacity = 1
             content = selectedContent
+            imageOpacity = 1
             removePeriodicTimeObserver()
             setupPlayer()
         }

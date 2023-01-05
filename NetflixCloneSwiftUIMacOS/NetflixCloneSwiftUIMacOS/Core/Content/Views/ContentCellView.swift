@@ -13,6 +13,7 @@ struct ContentCellView: View {
     @State var canHover = false
     @State var isHover = false
     @ObservedRealmObject var content: ContentRealmModel
+    @State var moreLikeContents: [ContentRealmModel] = []
     @State private var categories: String = ""
     @State private var image: NSImage = NSImage(systemSymbolName: "photo.artframe", accessibilityDescription: "baris")!
     
@@ -67,7 +68,7 @@ struct ContentCellView: View {
                                 .foregroundColor(.white)
                                 .background(Circle().stroke(Color(.lightGray)))
                                 .onTapGesture {
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectedContent"), object: content, userInfo: nil)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectedContent"), object: content)
                                     withAnimation(.spring()){
                                         print("pressed open window")
                                         openWindow(id: "content-expanded-window")

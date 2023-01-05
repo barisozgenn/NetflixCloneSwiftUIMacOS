@@ -255,7 +255,7 @@ extension ContentExpandedView{
         if let content = viewModel.content {
             image = content.imageBase64.convertBase64ToNSImage()
         }
-        withAnimation(.easeIn(duration: 2).delay(2)){viewModel.imageOpacity=0}
+        withAnimation(.easeIn(duration: 2).delay(1)){viewModel.imageOpacity=0}
     }
 }
 /*
