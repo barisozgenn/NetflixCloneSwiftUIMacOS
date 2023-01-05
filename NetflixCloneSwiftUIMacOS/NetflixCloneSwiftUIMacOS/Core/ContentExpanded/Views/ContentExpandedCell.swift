@@ -10,10 +10,9 @@ import RealmSwift
 
 struct ContentExpandedCell: View {
     @State var isHover = false
-    @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
     @State private var categories: String = ""
     @State private var image: NSImage = NSImage(systemSymbolName: "photo.artframe", accessibilityDescription: "baris")!
-    
+    @State var content : ContentRealmModel
     var body: some View {
         VStack{
             imageView
@@ -29,7 +28,7 @@ extension ContentExpandedCell {
     private var imageView:some View{
         ZStack{
             // content image and video
-            Image(nsImage: image)
+           /* Image(nsImage: image)
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -39,7 +38,7 @@ extension ContentExpandedCell {
                     withAnimation(.spring()){
                         image = content.imageBase64.convertBase64ToNSImage()
                     }
-                }
+                }*/
             // duration
             VStack{
                 HStack{
@@ -112,8 +111,9 @@ extension ContentExpandedCell {
         .padding(.horizontal)
     }
 }
+/*
 struct ContentExpandedCell_Previews: PreviewProvider {
     static var previews: some View {
         ContentExpandedCell()
     }
-}
+}*/

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import RealmSwift
 struct ContentExpandedView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var viewModel: ContentExpandedViewModel
@@ -18,9 +18,9 @@ struct ContentExpandedView: View {
     @State private var image: NSImage = NSImage(systemSymbolName: "photo.artframe", accessibilityDescription: "baris")!
     
     let columns = [
-        GridItem(),
-        GridItem(),
-        GridItem()
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
     
     var body: some View {
@@ -244,8 +244,13 @@ extension ContentExpandedView{
                 .font(.title)
                 .padding(.horizontal)
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(viewModel.contents, id: \.self) { item in
-                    ContentExpandedCell(content: item)
+                ForEach(0...9, id: \.self) { item in
+                   // ContentExpandedCell(content: viewModel.content)
+                    VStack{
+                        Text("bla bla")
+                    }
+                    .background(.red)
+                    .frame(maxWidth: 180,maxHeight: 358)
                 }
             }
             .padding(.horizontal)
@@ -259,9 +264,9 @@ extension ContentExpandedView{
     }
 }
 /*
-struct ContentExpandedView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentExpandedView()
-            .environmentObject(ContentExpandedViewModel())
-    }
-}*/
+ struct ContentExpandedView_Previews: PreviewProvider {
+ static var previews: some View {
+ ContentExpandedView()
+ .environmentObject(ContentExpandedViewModel())
+ }
+ }*/
