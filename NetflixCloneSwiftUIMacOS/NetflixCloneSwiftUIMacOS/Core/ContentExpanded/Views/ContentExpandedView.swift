@@ -235,10 +235,10 @@ extension ContentExpandedView{
         }
     }
 }
-
+/*
 struct ContentExpandedView_Previews: PreviewProvider {
     static var previews: some View {
         ContentExpandedView()
             .environmentObject(ContentExpandedViewModel())
     }
-}
+}*/

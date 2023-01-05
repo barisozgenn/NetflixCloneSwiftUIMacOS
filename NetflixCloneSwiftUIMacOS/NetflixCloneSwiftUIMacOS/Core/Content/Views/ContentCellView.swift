@@ -65,6 +65,10 @@ struct ContentCellView: View {
                                 .padding(16)
                                 .foregroundColor(.white)
                                 .background(Circle().stroke(Color(.lightGray)))
+                                .onTapGesture {
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectedContent"), object: content, userInfo: nil)
+
+                                }
                         }
                         // content description
                         HStack{

@@ -84,19 +84,19 @@ extension HomeView {
             .padding(.top, -200)
     }
     private var contentListsView: some View {
-        ForEach(Array(viewModel.contentTitles.enumerated()), id: \.offset) {index, title in
-            ListView(contents: viewModel.$contents, title: title)
+        ForEach(Array(viewModel.contentList.enumerated()), id: \.offset) {index, item in
+            ListView(contents: item.contents, title: item.title)
                 .padding(.top,index == 0 ? -100 : 0)
                 .onHover { hover in
                     if hover {
                         withAnimation(.spring()){
-                            hoverListId = title
+                            hoverListId = item.title
                         }
                     }else {
                         hoverListId = "none"
                     }
                 }
-                .zIndex(hoverListId == title ? 7 : 0)
+                .zIndex(hoverListId == item.title ? 7 : 0)
         }
     }
 }

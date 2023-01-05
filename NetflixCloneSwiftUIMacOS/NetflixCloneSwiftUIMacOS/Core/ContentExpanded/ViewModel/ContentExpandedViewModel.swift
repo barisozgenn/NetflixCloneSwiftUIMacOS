@@ -13,8 +13,9 @@ class ContentExpandedViewModel:ObservableObject{
     @Published var videoPlayer : AVPlayer
     @Published var isVideoReadyToPlay : Bool = false
     @Published var videoFrame : (width: CGFloat, height: CGFloat) = (629,353.81)
+    @Published var content: ContentRealmModel?
+    
     @ObservedResults(ContentRealmModel.self) var contents
-    @ObservedRealmObject var content: ContentRealmModel = ContentRealmModel()
     
     private let randomDemoVideos = [URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!,
@@ -28,9 +29,12 @@ class ContentExpandedViewModel:ObservableObject{
         videoPlayer = AVPlayer(url: Bundle.main.url(forResource: "netflix-intro-for-movie", withExtension: "mp4")!)
         videoPlayer.actionAtItemEnd = .pause
         setupPlayer()
-        if let selectedContent = contents.first {
-            content = selectedContent
-        } 
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.fetchSelectedContent(_:)),
+                                               name: NSNotification.Name(rawValue: "selectedContent"),
+                                               object: nil)
+        
     }
     
     deinit {
@@ -75,5 +79,11 @@ class ContentExpandedViewModel:ObservableObject{
     func setFrameSize(){
         let frameSize = videoPlayer.currentItem!.presentationSize
         videoFrame = (629, frameSize.width < 720 ? 290 : 353.81)
+    }
+    
+    @objc func fetchSelectedContent(_ notification: NSNotification){
+        if let selectedContent = notification.object as? ContentRealmModel {
+            self.content = selectedContent
+        }
     }
 }

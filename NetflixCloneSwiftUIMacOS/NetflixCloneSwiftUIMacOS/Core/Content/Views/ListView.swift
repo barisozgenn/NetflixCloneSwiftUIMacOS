@@ -9,12 +9,12 @@ import SwiftUI
 import RealmSwift
 struct ListView: View {
     @Environment(\.openWindow) private var openWindow
-    @ObservedResults(ContentRealmModel.self, sortDescriptor: SortDescriptor(keyPath: "_id", ascending: true)) var contents
+    let contents: [ContentRealmModel]
 
     var title: String = "List View Title"
     @State private var isListHover = false
     @State private var hoverItemIndex = -1
-
+    
     var body: some View {
         ZStack{
             VStack(alignment: .leading){
