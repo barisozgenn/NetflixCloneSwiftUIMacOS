@@ -8,7 +8,6 @@
 import SwiftUI
 import RealmSwift
 struct ListView: View {
-    @Environment(\.openWindow) private var openWindow
     let contents: [ContentRealmModel]
 
     var title: String = "List View Title"
@@ -41,10 +40,6 @@ struct ListView: View {
                                         }
                                     }
                                 }
-                            
-                                .onTapGesture { withAnimation(.spring()){
-                                    openWindow(id: "content-expanded-window")
-                                }}
                         }
                     }
                 }

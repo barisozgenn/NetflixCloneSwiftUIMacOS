@@ -14,8 +14,8 @@ class ContentExpandedViewModel:ObservableObject{
     @Published var isVideoReadyToPlay : Bool = false
     @Published var videoFrame : (width: CGFloat, height: CGFloat) = (629,353.81)
     @Published var content: ContentRealmModel?
-    
-    @ObservedResults(ContentRealmModel.self) var contents
+    @Published var imageOpacity = 1.0
+    @Published var contents: [ContentRealmModel] = []
     
     private let randomDemoVideos = [URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
                                     URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!,
@@ -83,7 +83,10 @@ class ContentExpandedViewModel:ObservableObject{
     
     @objc func fetchSelectedContent(_ notification: NSNotification){
         if let selectedContent = notification.object as? ContentRealmModel {
-            self.content = selectedContent
+            imageOpacity = 1
+            content = selectedContent
+            removePeriodicTimeObserver()
+            setupPlayer()
         }
     }
 }

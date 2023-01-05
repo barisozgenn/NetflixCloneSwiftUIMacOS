@@ -9,6 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct ContentCellView: View {
+    @Environment(\.openWindow) private var openWindow
     @State var canHover = false
     @State var isHover = false
     @ObservedRealmObject var content: ContentRealmModel
@@ -67,7 +68,10 @@ struct ContentCellView: View {
                                 .background(Circle().stroke(Color(.lightGray)))
                                 .onTapGesture {
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectedContent"), object: content, userInfo: nil)
-
+                                    withAnimation(.spring()){
+                                        print("pressed open window")
+                                        openWindow(id: "content-expanded-window")
+                                    }
                                 }
                         }
                         // content description

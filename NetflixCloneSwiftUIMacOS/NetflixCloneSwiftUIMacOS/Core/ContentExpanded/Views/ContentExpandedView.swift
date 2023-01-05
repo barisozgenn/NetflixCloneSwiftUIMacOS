@@ -15,6 +15,8 @@ struct ContentExpandedView: View {
     @State private var cast: String = ""
     @State private var genres: String = ""
     @State private var thisIs: String = ""
+    @State private var image: NSImage = NSImage(systemSymbolName: "photo.artframe", accessibilityDescription: "baris")!
+    
     let columns = [
         GridItem(),
         GridItem(),
@@ -47,10 +49,20 @@ struct ContentExpandedView: View {
 }
 extension ContentExpandedView{
     private var videoPlayerView : some View {
-        AVPlayerRepresented(videoPlayer: viewModel.videoPlayer)
-            .frame(maxWidth: viewModel.videoFrame.width, maxHeight: viewModel.videoFrame.height)
-            .disabled(true)
-            .background(.purple)
+        ZStack{
+            AVPlayerRepresented(videoPlayer: viewModel.videoPlayer)
+                .frame(maxWidth: viewModel.videoFrame.width, maxHeight: viewModel.videoFrame.height)
+                .disabled(true)
+                .background(.purple)
+            Image(nsImage: image)
+                .resizable()
+                .scaledToFill()
+                .frame(maxWidth: viewModel.videoFrame.width, maxHeight: viewModel.videoFrame.height)
+                .onAppear{setupHeader()}
+                .opacity(viewModel.imageOpacity)
+                .onChange(of: viewModel.content) { _ in setupHeader()}
+        }
+        
     }
     private var closeMarkView: some View{
         VStack{
@@ -75,70 +87,75 @@ extension ContentExpandedView{
     private var contentDetailView:some View{
         // content description
         HStack{
-            VStack(alignment: .leading){
-                HStack{
-                    Text("\(viewModel.content.match)% Match")
-                        .foregroundColor(.green)
-                        .fontWeight(.bold)
-                        .font(.title3)
-                    Text(viewModel.content.maturityRatings.first ?? "7+")
-                        .padding(2)
-                        .padding(.horizontal)
-                        .background(Rectangle().stroke(Color(.lightGray)))
-                    Text(viewModel.content.year)
-                        .padding(2)
-                    Text("HD")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .padding(2)
-                        .padding(.horizontal,6)
-                        .background(Rectangle().stroke(Color(.lightGray)))
+            if let content = viewModel.content {
+                VStack(alignment: .leading){
+                    HStack{
+                        Text("\(content.match)% Match")
+                            .foregroundColor(.green)
+                            .fontWeight(.bold)
+                            .font(.title3)
+                        Text(content.maturityRatings.first ?? "7+")
+                            .padding(2)
+                            .padding(.horizontal)
+                            .background(Rectangle().stroke(Color(.lightGray)))
+                        Text(content.year)
+                            .padding(2)
+                        Text("HD")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .padding(2)
+                            .padding(.horizontal,6)
+                            .background(Rectangle().stroke(Color(.lightGray)))
+                    }
+                    Text(content.episodes.first?.episodeDescription ?? "baris lorem ipsum")
+                        .font(.headline)
+                        .foregroundColor(.white)
                 }
-                Text(viewModel.content.episodes.first?.episodeDescription ?? "baris lorem ipsum")
-                    .font(.headline)
-                    .foregroundColor(.white)
+                .navigationTitle(content.name)
             }
-            VStack(alignment: .leading){
-                // cast
-                HStack(alignment: .top){
-                    Text("Cast:")
-                        .foregroundColor(.gray)
-                    Text(cast)
-                        .onAppear{
-                            var items = ""
-                            viewModel.content.artists.forEach { item in
-                                items += "\(item), "
+            Spacer()
+            if let content = viewModel.content{
+                VStack(alignment: .leading){
+                    // cast
+                    HStack(alignment: .top){
+                        Text("Cast:")
+                            .foregroundColor(.gray)
+                        Text(cast)
+                            .onAppear{
+                                var items = ""
+                                content.artists.forEach { item in
+                                    items += "\(item), "
+                                }
+                                cast = String(items.dropLast(2))
                             }
-                            cast = String(items.dropLast(2))
-                        }
-                }
-                // genres
-                HStack(alignment: .top){
-                    Text("Genres:")
-                        .foregroundColor(.gray)
-                    Text(genres)
-                        .onAppear{
-                            var items = ""
-                            viewModel.content.genres.forEach { item in
-                                items += "\(item), "
+                    }
+                    // genres
+                    HStack(alignment: .top){
+                        Text("Genres:")
+                            .foregroundColor(.gray)
+                        Text(genres)
+                            .onAppear{
+                                var items = ""
+                                content.genres.forEach { item in
+                                    items += "\(item), "
+                                }
+                                genres = String(items.dropLast(2))
                             }
-                            genres = String(items.dropLast(2))
-                        }
-                }
-                // this movie is
-                HStack(alignment: .top){
-                    Text("This movie is:")
-                        .foregroundColor(.gray)
-                    Text(thisIs)
-                        .onAppear{
-                            var items = ""
-                            viewModel.content.categories.forEach { item in
-                                items += "\(item), "
+                    }
+                    // this movie is
+                    HStack(alignment: .top){
+                        Text("This movie is:")
+                            .foregroundColor(.gray)
+                        Text(thisIs)
+                            .onAppear{
+                                var items = ""
+                                content.categories.forEach { item in
+                                    items += "\(item), "
+                                }
+                                thisIs = String(items.dropLast(2))
                             }
-                            thisIs = String(items.dropLast(2))
-                        }
-                }
-            }
+                    }
+                }}
         }
         .font(.headline)
         .foregroundColor(.white)
@@ -233,6 +250,12 @@ extension ContentExpandedView{
             }
             .padding(.horizontal)
         }
+    }
+    func setupHeader(){
+        if let content = viewModel.content {
+            image = content.imageBase64.convertBase64ToNSImage()
+        }
+        withAnimation(.easeIn(duration: 2).delay(2)){viewModel.imageOpacity=0}
     }
 }
 /*
