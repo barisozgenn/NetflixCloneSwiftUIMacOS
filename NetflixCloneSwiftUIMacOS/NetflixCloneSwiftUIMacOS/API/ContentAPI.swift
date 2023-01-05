@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import RealmSwift
 
-let realmApp = RealmSwift.App(id: "chat-baris-wshnz")
+let realmApp = RealmSwift.App(id: "write-here-your-own-realm-app-id")
 
 final class ContentService: ObservableObject {
     @ObservedResults(ContentRealmModel.self) var contents
@@ -96,7 +96,7 @@ final class ContentService: ObservableObject {
                     print("DUBUG: Realm Error: \(error.localizedDescription)")
                 }
             }, receiveValue: {[weak self] _ in
-                self?.fetchContentsFromRealm()
+                    self?.fetchContentsFromRealm()
             })
             .store(in: &cancellables)
     }

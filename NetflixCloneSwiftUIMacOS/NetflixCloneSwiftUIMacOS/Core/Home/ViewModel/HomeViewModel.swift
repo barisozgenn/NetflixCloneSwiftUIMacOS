@@ -7,12 +7,11 @@
 
 import AVKit
 import RealmSwift
-
 class HomeViewModel: ObservableObject {
     @Published var contentList: [ListModel] = []
     @Published var headerVideoPlayer = AVPlayer(url: Bundle.main.url(forResource: "avatar-intro", withExtension: "mp4")!)
     @ObservedResults(ContentRealmModel.self) var contents
-    lazy var service = ContentService()
+    let service = ContentService()
     
     init(){
         headerVideoPlayer.isMuted = true

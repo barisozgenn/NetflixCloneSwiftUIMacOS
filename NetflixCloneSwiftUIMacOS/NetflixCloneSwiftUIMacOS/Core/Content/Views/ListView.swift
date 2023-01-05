@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 struct ListView: View {
     let contents: [ContentRealmModel]
-
+    
     var title: String = "List View Title"
     @State private var isListHover = false
     @State private var hoverItemIndex = -1
@@ -33,9 +33,6 @@ struct ListView: View {
                                     if hover {
                                         withAnimation(.spring()){
                                             hoverItemIndex = index
-                                            
-                                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "moreLikeContents"),
-                                                                            object: contents.sorted(by: {$0.episodes.first!.episodeDescription.count > $1.episodes.first!.episodeDescription.count}).prefix(9).shuffled())
                                         }
                                     }else {
                                         withAnimation(.spring()){
@@ -58,11 +55,15 @@ struct ListView: View {
             .padding(.top)
         }
         .padding(.top, -129)
+        .onAppear{
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "moreLikeContents"),
+                                            object: contents.sorted(by: {$0.episodes.first!.episodeDescription.count > $1.episodes.first!.episodeDescription.count}).prefix(9).shuffled())
+        }
     }
 }
 /*
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListView()
-    }
-}*/
+ struct ListView_Previews: PreviewProvider {
+ static var previews: some View {
+ ListView()
+ }
+ }*/
