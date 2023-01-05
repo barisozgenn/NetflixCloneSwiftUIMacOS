@@ -15,11 +15,21 @@ struct ContentExpandedCell: View {
     @State var content : ContentRealmModel
     var body: some View {
         VStack{
-            imageView
+           //imageView
+            Image(nsImage: image)
+                 .resizable()
+                 .frame(maxWidth: 192, maxHeight: 129)
+                 .background(.red)
+                 .cornerRadius(4)
+                 .onAppear{
+                     withAnimation(.spring()){
+                         image = content.imageBase64.convertBase64ToNSImage()
+                     }
+                 }
             contentDescription
             Spacer()
         }
-        .frame(height: 358)
+        .frame(width: 192, height: 358)
         .background(Color(.darkGray))
         .cornerRadius(4)
     }
@@ -28,17 +38,16 @@ extension ContentExpandedCell {
     private var imageView:some View{
         ZStack{
             // content image and video
-           /* Image(nsImage: image)
+           Image(nsImage: image)
                 .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: 192, maxHeight: 129)
                 .background(.red)
                 .cornerRadius(4)
                 .onAppear{
                     withAnimation(.spring()){
                         image = content.imageBase64.convertBase64ToNSImage()
                     }
-                }*/
+                }
             // duration
             VStack{
                 HStack{
@@ -65,7 +74,7 @@ extension ContentExpandedCell {
                         .background(Circle().fill(.black.opacity(0.29)))
                 }
         }
-        .frame(height: 129)
+        //.frame(width: 192,height: 129)
         .onHover { hover in
             withAnimation(.spring()){isHover=hover}
         }
@@ -82,7 +91,7 @@ extension ContentExpandedCell {
                     HStack{
                         Text(content.maturityRatings.first ?? "7+")
                             .padding(2)
-                            .padding(.horizontal)
+                            .padding(.horizontal, 4)
                             .background(Rectangle().stroke(Color(.lightGray)))
                         Text("\(content.year)")
                             .padding(2)

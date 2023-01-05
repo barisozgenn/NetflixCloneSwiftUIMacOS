@@ -33,6 +33,9 @@ struct ListView: View {
                                     if hover {
                                         withAnimation(.spring()){
                                             hoverItemIndex = index
+                                            
+                                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "moreLikeContents"),
+                                                                            object: contents.sorted(by: {$0.episodes.first!.episodeDescription.count > $1.episodes.first!.episodeDescription.count}).prefix(9).shuffled())
                                         }
                                     }else {
                                         withAnimation(.spring()){

@@ -69,6 +69,10 @@ class ContentExpandedViewModel:ObservableObject{
                                                selector: #selector(self.fetchSelectedContent(_:)),
                                                name: NSNotification.Name(rawValue: "selectedContent"),
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.fetchMoreLikeContents(_:)),
+                                               name: NSNotification.Name(rawValue: "moreLikeContents"),
+                                               object: nil)
     }
     private func removePeriodicTimeObserver() {
         if let timeObserverToken = timeObserverToken {
@@ -87,6 +91,11 @@ class ContentExpandedViewModel:ObservableObject{
             imageOpacity = 1
             removePeriodicTimeObserver()
             setupPlayer()
+        }
+    }
+    @objc func fetchMoreLikeContents(_ notification: NSNotification){
+        if let moreLikeContents = notification.object as? [ContentRealmModel] {
+           contents = moreLikeContents
         }
     }
 }

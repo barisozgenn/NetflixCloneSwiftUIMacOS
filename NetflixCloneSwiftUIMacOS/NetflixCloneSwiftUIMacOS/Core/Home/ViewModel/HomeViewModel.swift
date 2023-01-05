@@ -21,6 +21,7 @@ class HomeViewModel: ObservableObject {
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: headerVideoPlayer.currentItem)
+        
         headerVideoPlayer.play()
         service.fetchContentsFromRealm()
         contents.forEach { item in

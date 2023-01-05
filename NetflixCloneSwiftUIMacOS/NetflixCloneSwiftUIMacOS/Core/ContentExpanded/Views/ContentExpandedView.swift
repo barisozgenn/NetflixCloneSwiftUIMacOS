@@ -243,14 +243,9 @@ extension ContentExpandedView{
                 .foregroundColor(.white)
                 .font(.title)
                 .padding(.horizontal)
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(0...9, id: \.self) { item in
-                   // ContentExpandedCell(content: viewModel.content)
-                    VStack{
-                        Text("bla bla")
-                    }
-                    .background(.red)
-                    .frame(maxWidth: 180,maxHeight: 358)
+            LazyVGrid(columns: columns, spacing: 14) {
+                ForEach(viewModel.contents, id: \.self) { item in
+                    ContentExpandedCell(content: item)
                 }
             }
             .padding(.horizontal)
