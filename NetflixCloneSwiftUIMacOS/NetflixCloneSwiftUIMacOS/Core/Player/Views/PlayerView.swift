@@ -131,7 +131,11 @@ extension PlayerView{
                         .withPlayerButtonModifier()
                         .onTapGesture {
                             withAnimation(.spring()){
-                               
+                                /*if let window = NSApplication.shared.windows.last {
+                                 window.toggleFullScreen($isFullScreen)
+                                 }*/
+                                viewModel.isFrameFullScreen.toggle()
+                                //NSApp.mainWindow?.standardWindowButton(.zoomButton)?.performClick(nil)
                             }
                         }
                 }
