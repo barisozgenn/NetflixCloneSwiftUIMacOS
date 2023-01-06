@@ -19,7 +19,15 @@ YouTubeLink: https://youtu.be/QY6P-yLKaxo
 ```bash
 realmApp = RealmSwift.App(id: "your-realm-app-id")
 ```
+
+## For More
+
+- Discover more bottom sheet and geometry animations - [BowlShopSwiftUI](https://github.com/barisozgenn/BowlShopSwiftUI)
+
+- Learn more about Realm - <a href="https://youtu.be/lSp95xkvo1U" target="_blank">MongoDB Channel - Realm SwiftUI</a>
   
+- The content videos are randomly pulled from the demo videos shown on <a href="https://commondatastorage.googleapis.com/gtv-videos-bucket/" target="_blank">googleapis.com</a>
+
 ## Distribution
 
 Clone
@@ -32,10 +40,3 @@ GitHub CLI
 ```bash
 gh repo clone barisozgenn/NetflixCloneSwiftUIMacOS
 ```
-
-## For More
-
-- Discover more bottom sheet and geometry animations - [BowlShopSwiftUI](https://github.com/barisozgenn/BowlShopSwiftUI)
-
-- Learn more about Realm - <a href="https://youtu.be/lSp95xkvo1U" target="_blank">MongoDB Channel - Realm SwiftUI</a>
-  
